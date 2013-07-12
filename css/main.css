@@ -1,0 +1,43 @@
+/*
+Colors:
+#56C7B2
+#373737
+#21BDD8
+#F8422D
+#FFD346
+
+ */
+html, body {
+  -webkit-font-smoothing:antialiased;
+}
+
+html, body, h1, h2, h4, h4, h5, button, a, p {
+  font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
+}
+
+header {
+  padding-top:10px;
+  padding-bottom:10px;
+  background:#56C7B2;
+  margin-bottom:10px;
+}
+
+header h2 {
+  text-transform:uppercase;
+  color:#FFF;
+  font-weight:500;
+  font-size:18px;
+  line-height:24px;
+  margin:0;
+}
+
+form.answers button.button.large {
+  font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
+  background:#21BDD8;
+  width:100%;
+  text-align:left;
+  border:none;
+  border-radius:5px;
+  font-weight:300;
+  font-size:18px;
+}
