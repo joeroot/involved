@@ -17,6 +17,7 @@
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
+  <script src="js/vendor/ICanHaz.js"></script>
   <script src="js/main.js"></script>
 
 </head>
@@ -31,57 +32,27 @@
     </div>
   </header>
 
-  <div class="row question">
-    <div class="large-8 large-centered columns text-center">
-      <h6>Question:</h6>
-      <h3>Hey Michael and Tom, do we have really bad UX? </h3>
-      <!--<h4><span class="timer">30s remaining</span></h4>-->
-    </div>
+  <div class="container" id="question-container">
   </div>
 
-  <form class="answers">
-    <div class="row">
-      <div class="large-8 large-centered columns">
-        <input type="checkbox" id="answer-1" name="answer" value="1">
-        <button class="button large" data-for="answer-1">Answer one</button>
+  <script id="question" type="text/html">
+    <div class="row question">
+      <div class="large-8 large-centered columns text-center">
+        <h6>Question:</h6>
+        <h3>{{ question }}</h3>
       </div>
     </div>
-    <div class="row">
-      <div class="large-8 large-centered columns">
-        <input type="checkbox" id="answer-2" name="answer" value="2">
-        <button class="button large" data-for="answer-2">Answer number two goes here</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="large-8 large-centered columns">
-        <input type="checkbox" id="answer-3" name="answer" value="3">
-        <button class="button large" data-for="answer-3">I am an answer</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="large-8 large-centered columns">
-        <input type="checkbox" id="answer-4" name="answer" value="4">
-        <button class="button large" data-for="answer-4">This is another answer to a question</button>
-      </div>
-    </div>
-  </form>
 
-  <div class="row question">
-    <div class="large-8 large-centered columns text-center">
-      <h6>Question:</h6>
-      <h3>Hey Michael and Tom, do we have really bad UX? </h3>
-      <!--<h4><span class="timer">30s remaining</span></h4>-->
-    </div>
-  </div>
-
-
-  <script id="user" type="text/html">
-    <div class="row">
-      <div class="large-8 large-centered columns">
-        <input type="checkbox" id="answer-{{ index }}" name="answer" value="{{ index }}">
-        <button class="button large" data-for="answer-{{ index }}">This is another answer to a question</button>
+    <form class="answers">
+      {{#answers}}
+      <div class="row">
+        <div class="large-8 large-centered columns">
+          <input type="checkbox" id="answer-{{ index }}" name="answer" value="{{ index }}">
+          <button class="button large" data-for="answer-{{ index }}">{{ answer }}</button>
+        </div>
       </div>
-    </div>
+      {{/answers}}
+    </form>
   </script>
 
   <script>
@@ -128,35 +99,52 @@
   <script>
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
-    $(function(){
-      var Quiz = Parse.Object.extend("Quiz");
-      var quizes = new Parse.Query(Quiz);
-      quizes.each(function(quiz){
-        console.log(quiz.get('question'));
-        console.log(quiz.get('answers'));
-      })
-    })
-  </script>
 
-  <script type="text/javascript">
-    $(function(){
-      $(".answers button.large").each(function(i){
-        //new FastClick(this);
-      });
+    function loadQuestion(id) {
+      var Question = Parse.Object.extend("Question");
+      var questions = new Parse.Query(Question);
+      questions.get(id, {
+        success: function(question) {
+          var answers = question.get("answers");
+          answers = $.map(answers, function(answer, index) {
+            return {index: index, answer: answer}
+          });
 
-      $(".answers button.large").on('click', function(e){
-        var for_id = $(this).data("for");
-        if ($(this).hasClass("selected")) {
-          $("#" + for_id).prop('checked', false);
-          $(this).removeClass("selected");
-        } else {
-          $("#" + for_id).prop('checked', true);
-          $(this).addClass("selected");
+          var dom = ich.question({
+            question: question.get("question"),
+            answers: answers
+          });
+
+          $("#question-container").html(dom);
+
+          $(".answers button.large").each(function(i){
+            //new FastClick(this);
+          });
+
+          $(".answers button.large").on('click', function(e){
+            var for_id = $(this).data("for");
+            if ($(this).hasClass("selected")) {
+              $("#" + for_id).prop('checked', false);
+              $(this).removeClass("selected");
+            } else {
+              $("#" + for_id).prop('checked', true);
+              $(this).addClass("selected");
+            }
+            e.preventDefault();
+          });
+        },
+        error: function(object, error) {
+          // The object was not retrieved successfully.
+          // error is a Parse.Error with an error code and description.
         }
-        e.preventDefault();
       });
+
+      // End loadQuestions(id)
+    }
+
+    $(function(){
+      loadQuestion("pt32Xy7lpM");
     });
   </script>
-
 </body>
 </html>
