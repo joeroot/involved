@@ -143,7 +143,13 @@
       $(".answers button.large").each(function(i){
         //new FastClick(this);
       });
+      var pusher = new Pusher('7638841659acb7e9cdfd');
+      var channel = pusher.subscribe('private-'+quiz_id);
+      channel.bind('client-'+quiz_id, loadQuestion);
 
+      loadQuestion = function(data){
+        question_id = data.question_id;
+      }
       $(".answers button.large").on('click', function(e){
         var for_id = $(this).data("for");
         if ($(this).hasClass("selected")) {
