@@ -155,6 +155,10 @@
   <script>
     $(document).foundation();
     var pusher = new Pusher('283d42df390fe7a9c2f2');
+    var channel = pusher.subscribe('private-channel');
+    channel.bind('pusher:subscription_succeeded', function() {
+      var triggered = channel.trigger('client-questionTime', { id: data });
+    });
   </script>
 </body>
 </html>
