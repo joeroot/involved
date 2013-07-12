@@ -43,11 +43,15 @@ form.answers button.button.large {
   font-weight:600;
   font-size:16px;
   line-height:24px;
-  background:#F95E4D url('/img/tick-empty.png') 20px center no-repeat;
+  background:#F96E5F url('/img/tick-empty.png') 20px center no-repeat;
 }
 
 form.answers button.button.large.selected {
-  background:#F8422D url('/img/tick.png') 20px center no-repeat;
+  background:#f5331d url('/img/tick.png') 20px center no-repeat;
+}
+
+form.answers input[type=checkbox] {
+  display:none;
 }
 
 .question {
@@ -55,13 +59,22 @@ form.answers button.button.large.selected {
 }
 
 .question h3 {
-  font-size:20px;
-  line-height:24px;
-  padding:0;
-  margin:0;
-  margin-bottom:5px;
+  font-size:20px !important;
+  line-height:28px !important;
+  padding:0 !important;
+  margin:0 !important;
+  margin-bottom:5px !important;
   color:#353535;
   font-weight:600;
+}
+
+.question h4 .timer {
+  background:#68d05b;
+  color:#FFF;
+  border-radius:3px;
+  font-size:18px;
+  line-height:24px;
+  padding:4px 8px;
 }
 
 .question h6 {

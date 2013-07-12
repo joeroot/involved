@@ -20,7 +20,7 @@
 
   <header>
     <div class="row">
-      <div class="large-12 columns text-center">
+      <div class="large-8 large-centered columns text-center">
         <h2>Involved</h2>
       </div>
     </div>
@@ -29,29 +29,34 @@
   <div class="row question">
     <div class="large-8 large-centered columns text-center">
       <h6>Question:</h6>
-      <h3>Hey Michael and Tom, do we have really bad UX?</h3>
+      <h3>Hey Michael and Tom, do we have really bad UX? </h3>
+      <!--<h4><span class="timer">30s remaining</span></h4>-->
     </div>
   </div>
 
   <form class="answers">
     <div class="row">
       <div class="large-8 large-centered columns">
-        <button class="button large">Answer one</button>
+        <input type="checkbox" id="answer-1" name="answer" value="1">
+        <button class="button large" data-for="answer-1">Answer one</button>
       </div>
     </div>
     <div class="row">
       <div class="large-8 large-centered columns">
-        <button class="button large selected">Answer number two goes here</button>
+        <input type="checkbox" id="answer-2" name="answer" value="2">
+        <button class="button large" data-for="answer-2">Answer number two goes here</button>
       </div>
     </div>
     <div class="row">
       <div class="large-8 large-centered columns">
-        <button class="button large">I am an answer</button>
+        <input type="checkbox" id="answer-3" name="answer" value="3">
+        <button class="button large" data-for="answer-3">I am an answer</button>
       </div>
     </div>
     <div class="row">
       <div class="large-8 large-centered columns">
-        <button class="button large">This is another answer to a question</button>
+        <input type="checkbox" id="answer-4" name="answer" value="4">
+        <button class="button large" data-for="answer-4">This is another answer to a question</button>
       </div>
     </div>
   </form>
@@ -100,5 +105,22 @@
   <script>
     $(document).foundation();
   </script>
+
+  <script type="text/javascript">
+    $(function(){
+      $(".answers button.large").click(function(e){
+        var for_id = $(this).data("for");
+        if ($(this).hasClass("selected")) {
+          $("#" + for_id).prop('checked', false); 
+          $(this).removeClass("selected");
+        } else {
+          $("#" + for_id).prop('checked', true); 
+          $(this).addClass("selected");
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+
 </body>
 </html>
