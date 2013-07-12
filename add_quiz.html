@@ -112,42 +112,41 @@
       event.preventDefault();
       console.log('hoping to save quiz');
 
+      var quiz = new Quiz();
       //save each question
       var questions = $('#quiz_question').each(function(q_index,q_item) {
         console.log('iterating through questions')
         var question = new Question();
         var questionString = $(q_item).val();
-
+        var correctAnswer
         //add each answer
         $('.answer_field .an_answer').each(function(a_index,a_item) {
             console.log('iterating answers')
             var answer = new Answer;
-            //Mark correct answer
-            var trueAnswer = answer
             var answerString = $(a_item).val();
             answer.save({
               answer: answerString,
               votes: '0',
-              corrent: false,
+              correct: false,
+              parent: question,
             })
-            console.log(answerString)
+            // console.log(answerString)
         });
 
         question.save({
           question: questionString,
-          answers: answers,
-        }, {
-          success: function(quiz) {
-          console.log('Question saved apparently. Quiz id:' + question.id)
-        },
-          error: function(quiz, error) {
-          // The save failed.
-          // error is a Parse.Error with an error code and description.
-          }
+          quiz: quiz,
         });
-      })
-
-      //save each Quiz
+      });
+      quiz.save()
+        // , {
+        //   success: function(quiz) {
+        //   console.log('Question saved apparently. Quiz id:' + question.id)
+        // },
+        //   error: function(quiz, error) {
+        //   // The save failed.
+        //   // error is a Parse.Error with an error code and description.
+        //   }
 
     })
     //Querying
