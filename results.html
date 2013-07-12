@@ -1,31 +1,66 @@
-<!doctype HTML>
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 
 <head>
-	<link rel="stylesheet" href="css/foundation.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Foundation 4</title>
+
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/main.css" />
+
+  <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <script src="js/vendor/custom.modernizr.js"></script>
+
 	<style>
 		h1 {
 			background-color: #4D8CEF;
 			margin-top: 0px;
-			padding: 4px;
+			padding: 10px;
 			color:white;
 		}
 		h2 {
-			padding: 4px;
+			padding: 10px;
+		}
+		.letter {
+			font-weight: bold;
 		}
 	</style>
+
+  <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <script src="js/vendor/custom.modernizr.js"></script>
 
 </head>
 <body>
 
 <h1>Quiz results</h1>
 
-<div id="container">
+<div id="row">
+	<div class="large-8 columns large-offset-2">
 <h2>Question: What colour is a dinosaur?</h2>
 
 <div id="answers" class="panel">
-	<div class="answer panel">A Green</div> <div class="progress"><span class="meter" style="width:25%"></div>
-	<div class="answer panel">A Green</div> <div class="progress"><span class="meter" style="width:22%"></div>
-	<div class="answer panel">A Green</div> <div class="progress"><span class="meter" style="width:34%"></div>
-	<div class="answer panel">A Green</div> <div class="progress"><span class="meter" style="width:76%"></div>
-
+	<div class="answer"><span class="letter">A</span> Blue</div> <div class="progress"><span class="meter secondary" style="width:25%"></div>
+	<div class="answer"><span class="letter">B</span> Red</div> <div class="progress alert"><span class="meter alert" style="width:22%"></div>
+	<div class="answer"><span class="letter">C</span> Green</div> <div class="progress success"><span class="meter success" style="width:34%"></div>
+	<div class="answer"><span class="letter">D</span> Grey</div> <div class="progress secondary"><span class="meter" style="width:76%"></div>
+	</div>
 </div>
+
+  <script>
+    document.write('<script src=' +
+                   ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+                   '.js><\/script>')
+  </script>
+
+  <script src="js/foundation.min.js"></script>
+
+    <script>
+    $(document).foundation();
+  </script>
+
+  </body>
+  </html>
