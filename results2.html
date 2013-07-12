@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -12,10 +11,9 @@
   <link rel="stylesheet" href="css/main.css" />
 
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
+  <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
-
-
 </head>
 
 <body>
@@ -38,35 +36,14 @@
 
 <div class="row results">
   <div class="columns large-8 large-offset-2">
-
+  <div id="answer-template" class="hidden">
     <div id="answer" class="answer row panel answer">
-      <div class="large-4 columns text-center"><h4>Absolutely - 22%</h4></div>
+      <div class="large-4 columns text-center"><h4><span class="answer-value">Absolutely</span> - <span class="answer-percent">0</span></h4></div>
       <div class="large-8 columns">
         <div class="progress"><span class="meter secondary" style="width:22%"></span></div>
       </div>
     </div>
-
-    <div id="answer" class="row panel callout answer">
-      <div class="large-4 columns text-center"><h4>Never - 65%</h4></div>
-      <div class="large-8 columns">
-        <div class="progress success"><span class="meter" style="width:65%;background-color:#FFCA20 "></span></div>
-      </div>
     </div>
-
-    <div id="answer" class="row panel answer">
-      <div class="large-4 columns text-center"><h4>Forever - 1%</h4></div>
-      <div class="large-8 columns">
-        <div class="progress"><span class="meter secondary" style="width:1%"></span></div>
-      </div>
-    </div>
-
-    <div id="answer" class="row panel answer">
-      <div class="large-4 columns text-center"><h4>And a day   - 2%</h4></div>
-      <div class="large-8 columns">
-        <div class="progress"><span class="meter secondary" style="width:12%"></span></div>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -118,7 +95,30 @@
   -->
 
   <script>
+
+  function addAnswer(answer, text, correct) {
+      $('#answer-template').find('.answer-value').text(text);
+      $('#answer-template').children('div').attr("id","answer-"+answer);
+      $('.results').children('div').append($('#answer-template').html());
+  }
+
+  function setScore(answer, score) {
+      $('#answer-'+answer).find(".answer-percent").text(score+"%");
+      $('#answer-'+answer).find(".progress").children('span').attr("style", "width:"+score+"%");
+  }
+
+  //TODO ADD CORRECT ANSWER
+
     $(document).foundation();
+    Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
+
+    addAnswer('a','Test1',true);
+    addAnswer('b','Test2',false);
+    addAnswer('c','Test3',false);
+
+    setScore('a',100);
+    setScore('b',50);
+    setScore('c',25);
   </script>
 </body>
 </html>

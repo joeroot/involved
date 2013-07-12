@@ -129,3 +129,7 @@ button#intro {
 }
 
 .row.extramargin {margin-bottom: 50px auto 10px !important;}
+
+.hidden {
+  display: none;
+}
