@@ -31,26 +31,33 @@
       <legend>New Quiz</legend>
 
       <div class="row">
-        <div class="large-12 columns">
-          <label>Question</label>
-          <input id="quiz_question" type="text" placeholder="Enter the question you'd like displayed to the students">
-        </div>
-      </div>
-      <div id="answers" >
-        <div class="answer_template">
-          <div class="row answer_field">
-            <div class="large-12 columns">
-              <label>Answer</label>
-              <input type="text" class='an_answer' placeholder="Enter one of the possible answers">
-            </div>
+        <div class="question_template">
+          <div class="large-12 columns">
+            <label>Question</label>
+            <input id="quiz_question" type="text" placeholder="Enter the question you'd like displayed to the students">
+          </div>
 
+        <div id="answers" >
+          <div class="answer_template">
+            <div class="row answer_field">
+              <div class="large-12 columns">
+                <label>Answer</label>
+                <input type="text" class='an_answer' placeholder="Enter one of the possible answers">
+              </div>
+            </div>
+          </div> 
+        </div>
+
+        <div class="row">
+          <div class="columns">
+          <button href="#" class="button round" id="add_answer">Add Answer</button>
           </div>
         </div>
       </div>
 
         <div class="row">
           <div class="columns">
-          <button href="#" class="button round" id="add_answer">Add Answer</button>
+          <button href="#" class="button round" id="add_question">Add Question</button>
           </div>
         </div>
 
@@ -72,35 +79,20 @@
   <!--
 
   <script src="js/foundation/foundation.js"></script>
-
   <script src="js/foundation/foundation.alerts.js"></script>
-
   <script src="js/foundation/foundation.clearing.js"></script>
-
   <script src="js/foundation/foundation.cookie.js"></script>
-
   <script src="js/foundation/foundation.dropdown.js"></script>
-
   <script src="js/foundation/foundation.forms.js"></script>
-
-  <script src="js/foundation/foundation.joyride.js"></script>
-
+  <script src="js/foundation/foundation.joyride.js"></script
   <script src="js/foundation/foundation.magellan.js"></script>
-
   <script src="js/foundation/foundation.orbit.js"></script>
-
   <script src="js/foundation/foundation.reveal.js"></script>
-
   <script src="js/foundation/foundation.section.js"></script>
-
   <script src="js/foundation/foundation.tooltips.js"></script>
-
   <script src="js/foundation/foundation.topbar.js"></script>
-
   <script src="js/foundation/foundation.interchange.js"></script>
-
   <script src="js/foundation/foundation.placeholder.js"></script>
-
   -->
 
   <script>
@@ -110,30 +102,50 @@
     //var testObject = new TestObject();
 
     $('#add_answer').click(function() {
+      event.preventDefault();
       $('#answers').append($('.answer_template').html());
     });
-    var Quiz = Parse.Object.extend("Quiz");
-    $('#save_quiz').click(function(){
-      var question = $('#quiz_question').val()
-      var answers = new Array;
-      $('.answer_field .an_answer').each(function(index,item) {
-          answers.push($(item).val());
-      });
-      var quiz = new Quiz();
-      quiz.save({
-        question: question,
-        answers: answers,
 
-      }, {
-        success: function(quiz) {
-          console.log('goodness me')
-          // The object was saved successfully.
+    $('#add_question').click(function() {
+      event.preventDefault();
+      $('#answers').append($('.question_template').html());
+    });
+    
+
+    var Quiz = Parse.Object.extend("Quiz");
+    var Question = Parse.Object.extend("Question");
+
+    $('#save_quiz').click(function(event){
+      event.preventDefault();
+      console.log('hoping to save quiz')
+
+      //save each question
+      var questions = $('#quiz_question').each(function(index,item) {
+        console.log('iterating through questions')
+        var question = new Question();
+        var questionString = $(item).val();
+        var answers = new Array;
+        $('.answer_field .an_answer').each(function(index,item) {
+            answers.push($(item).val());
+            console.log('answers')
+        });
+
+        question.save({
+          question: questionString,
+          answers: answers,
+        }, {
+          success: function(quiz) {
+          console.log('Question saved apparently. Quiz id:' + question.id)
         },
-        error: function(quiz, error) {
+          error: function(quiz, error) {
           // The save failed.
           // error is a Parse.Error with an error code and description.
-        }
-      });
+          }
+        });
+      })
+
+      //save each Quiz
+
     })
     //Querying
     var quizes = new Parse.Query(Quiz);
