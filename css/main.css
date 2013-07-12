@@ -50,6 +50,21 @@ form.answers button.button.large.selected {
   background:#F8422D url('/img/tick.png') 20px center no-repeat;
 }
 
+.results button.button.large {
+  font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
+  padding-left:64px;
+  width:100%;
+  text-align:left;
+  border-radius:5px;
+  border:none;
+  box-shadow:none;
+  font-weight:600;
+  font-size:16px;
+  line-height:24px;
+  background:#F95E4D url('/img/tick-empty.png') 20px center no-repeat;
+}
+
+
 .question {
   padding:15px 0;
 }
@@ -71,4 +86,16 @@ form.answers button.button.large.selected {
   font-weight:500;
   margin:0;
   padding:0;
+}
+
+.results h4 {
+  font-size: 20px;
+}
+
+.answer {
+  margin-bottom: 20px !important;
+}
+
+.answer.callout {
+  background-color: #19C74D;
 }
