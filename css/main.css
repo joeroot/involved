@@ -103,3 +103,8 @@ form.answers button.button.large.selected {
 .archive .panel {
     padding: 10px  !important;
 }
+
+button#intro {
+  width:100%;
+  background-color: #56C7B2;
+}
