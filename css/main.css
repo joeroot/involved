@@ -11,6 +11,10 @@ html, body {
   -webkit-font-smoothing:antialiased;
 }
 
+body {
+  background-color: #FFF7F4;
+}
+
 body:after{
   display:none;
   content: url(/img/tick.png) url(/img/tick@2x.png);
@@ -107,6 +111,23 @@ form.answers input[type=checkbox] {
   padding:0;
 }
 
+.empty-question {
+  margin-top:20px;
+  margin-bottom:20px;
+  border: 3px dashed #AAA;
+  border-radius:10px;
+  padding:40px;
+  text-align:center;
+  opacity:0.8;
+}
+
+.empty-question h2 {
+  font-size:24px;
+  color:#888;
+  margin:0;
+  padding:0;
+}
+
 .results h4 {
   font-size: 20px;
 }
@@ -132,4 +153,9 @@ button#intro {
 
 .hidden {
   display: none;
+}
+
+.home_title {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
