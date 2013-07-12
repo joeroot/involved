@@ -116,3 +116,5 @@ form.answers input[type=checkbox] {
 .archive .panel {
     padding: 10px  !important;
 }
+
+.row.extramargin {margin-bottom: 50px auto 10px !important;}
