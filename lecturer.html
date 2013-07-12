@@ -12,8 +12,11 @@
   <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
+  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
+  <script src="js/vendor/ICanHaz.js"></script>
+  <script src="js/main.js"></script>
 
 </head>
 
@@ -38,14 +41,7 @@
           </div>
 
         <div id="answers" >
-          <div class="answer_template">
-            <div class="row answer_field">
-              <div class="large-12 columns">
-                <label>Answer</label>
-                <input type="text" class='an_answer' placeholder="Enter one of the possible answers">
-              </div>
-            </div>
-          </div> 
+          
         </div>
 
         <div class="row">
@@ -75,59 +71,66 @@
                    '.js><\/script>')
   </script>
 
+  <script id="answer_template" type="text/html">
+      <div class="row answer_field">
+        <div class="large-12 columns">
+          <label>Answer</label>
+          <input type="text" name="answer[{{ index }}]" class='an_answer' placeholder="Enter one of the possible answers">
+        </div>
+      </div>
+  </script>
+
+
+
   <script src="js/foundation.min.js"></script>
-  <!--
-
-  <script src="js/foundation/foundation.js"></script>
-  <script src="js/foundation/foundation.alerts.js"></script>
-  <script src="js/foundation/foundation.clearing.js"></script>
-  <script src="js/foundation/foundation.cookie.js"></script>
-  <script src="js/foundation/foundation.dropdown.js"></script>
-  <script src="js/foundation/foundation.forms.js"></script>
-  <script src="js/foundation/foundation.joyride.js"></script
-  <script src="js/foundation/foundation.magellan.js"></script>
-  <script src="js/foundation/foundation.orbit.js"></script>
-  <script src="js/foundation/foundation.reveal.js"></script>
-  <script src="js/foundation/foundation.section.js"></script>
-  <script src="js/foundation/foundation.tooltips.js"></script>
-  <script src="js/foundation/foundation.topbar.js"></script>
-  <script src="js/foundation/foundation.interchange.js"></script>
-  <script src="js/foundation/foundation.placeholder.js"></script>
-  -->
-
   <script>
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
     //var TestObject = Parse.Object.extend("TestObject");
     //var testObject = new TestObject();
 
-    $('#add_answer').click(function() {
-      event.preventDefault();
-      $('#answers').append($('.answer_template').html());
+    var index=1;
+    $('#add_answer').click(function(e) {
+      $('#answers').append(ich.answer_template({index: index}));
+      index += 1;
+      console.log("hey");
+      e.preventDefault();
     });
 
-    $('#add_question').click(function() {
-      event.preventDefault();
+    $('#add_question').click(function(e) {
       $('#answers').append($('.question_template').html());
+      e.preventDefault();
     });
     
 
     var Quiz = Parse.Object.extend("Quiz");
     var Question = Parse.Object.extend("Question");
+    var Answer = Parse.Object.extend("Answer");
+
 
     $('#save_quiz').click(function(event){
       event.preventDefault();
-      console.log('hoping to save quiz')
+      console.log('hoping to save quiz');
 
       //save each question
-      var questions = $('#quiz_question').each(function(index,item) {
+      var questions = $('#quiz_question').each(function(q_index,q_item) {
         console.log('iterating through questions')
         var question = new Question();
-        var questionString = $(item).val();
-        var answers = new Array;
-        $('.answer_field .an_answer').each(function(index,item) {
-            answers.push($(item).val());
-            console.log('answers')
+        var questionString = $(q_item).val();
+
+        //add each answer
+        $('.answer_field .an_answer').each(function(a_index,a_item) {
+            console.log('iterating answers')
+            var answer = new Answer;
+            //Mark correct answer
+            var trueAnswer = answer
+            var answerString = $(a_item).val();
+            answer.save({
+              answer: answerString,
+              votes: '0',
+              corrent: false,
+            })
+            console.log(answerString)
         });
 
         question.save({
