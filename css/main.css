@@ -13,31 +13,35 @@ html, body {
 
 html, body, h1, h2, h4, h4, h5, button, a, p {
   font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
+  -webkit-font-smoothing:antialiased;
 }
 
 header {
-  padding-top:10px;
-  padding-bottom:10px;
+  padding-top:15px;
+  padding-bottom:15px;
   background:#56C7B2;
-  margin-bottom:10px;
+  margin-bottom:20px;
 }
 
 header h2 {
   text-transform:uppercase;
   color:#FFF;
   font-weight:500;
-  font-size:18px;
+  font-size:22px;
   line-height:24px;
   margin:0;
 }
 
 form.answers button.button.large {
   font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
-  background:#21BDD8;
+  background:#F95E4D url('/img/tick.png') 20px center no-repeat;
+  padding-left:64px;
   width:100%;
   text-align:left;
-  border:none;
   border-radius:5px;
-  font-weight:300;
-  font-size:18px;
+  border:none;
+  box-shadow:none;
+  font-weight:600;
+  font-size:16px;
+  line-height:24px;
 }
