@@ -14,6 +14,7 @@
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
+  <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
   <div class="row question">
     <div class="large-8 large-centered columns text-center">
       <h6>Question:</h6>
-      <h3>Hey Michael and Tom, do we have really bad UX?</h3>
+      <h3 id="question-text">No Question Loaded</h3>
     </div>
   </div>
 
@@ -107,18 +108,40 @@
       $('#answer-'+answer).find(".progress").children('span').attr("style", "width:"+score+"%");
   }
 
+  function getInformation(questionId) {
+      var Question = Parse.Object.extend("Question");
+      var query = new Parse.Query(Question);
+      query.get(questionId, {
+      success: function(question) {
+        $('#question-text').text(question.get('question'));
+        var relation = question.relation("answers");
+        relation.query().find({
+          success: function(list) {
+            for (var i = 0; i < list.length; i++) {
+              var answer = list[i];
+              var chr = String.fromCharCode(97 + i);
+              addAnswer(chr, answer.get('text'), answer.get('correct'));
+              setScore(chr,answer.get('votes'));
+            }
+          }
+        });
+      },
+      error: function(object, error) {
+        // The object was not retrieved successfully.
+        // error is a Parse.Error with an error code and description.
+      }
+    });
+  }
+
   //TODO ADD CORRECT ANSWER
 
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
 
-    addAnswer('a','Test1',true);
-    addAnswer('b','Test2',false);
-    addAnswer('c','Test3',false);
+    var quizId = getURLParameter('quidId');
+    var questionId = getURLParameter('questionId');
+    getInformation(questionId);
 
-    setScore('a',100);
-    setScore('b',50);
-    setScore('c',25);
   </script>
 </body>
 </html>
