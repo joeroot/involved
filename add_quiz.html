@@ -9,11 +9,15 @@
 
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/flat-ui.css" />
+
 
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
+
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 
@@ -26,48 +30,58 @@
       </div>
     </div>
   </header>
+
+  <div class="large-8 columns large-centered large-offset-2">
   <form>
     <fieldset>
-      <legend>New Quiz</legend>
+      <legend>Add a quiz</legend>
 
       <div class="row">
         <div class="question_template">
-          <div class="large-12 columns">
-            <label>Question</label>
-            <input id="quiz_question" type="text" placeholder="Enter the question you'd like displayed to the students">
-          </div>
 
-        <div id="answers" >
+        <div class="row">
+          <div class="large-2 columns"><label><h5>Question</h5></label></div>
+          <div class="large-8 columns"><input id="quiz_question" type="text" placeholder="Enter the question you'd like displayed to the students"></div>
+          <div class="large-2 columns"></div>
+        </div>
+
+        <div id="answers">
           <div class="answer_template">
             <div class="row answer_field">
               <div class="large-12 columns">
-                <label>Answer</label>
-                <input type="text" class='an_answer' placeholder="Enter one of the possible answers">
+
+                <div class="row">
+                  <div class="large-2 columns"><label><h5>Answer</h5></label></div>
+                  <div class="large-8 columns"><input type="text" class='an_answer' placeholder="Enter one of the possible answers"></div> 
+                  <div class="large-2 columns"> <a href="#" id="delete_answer"><i class="icon-remove icon-2x"></i></a> <input type="radio" class="correct" id="correct_answer" />
+                  </div>
+                </div>
+
+                <button href="#" class="button round" id="add_answer">Add answer</button>
+
               </div>
             </div>
           </div> 
         </div>
 
+
+
         <div class="row">
           <div class="columns">
-          <button href="#" class="button round" id="add_answer">Add Answer</button>
           </div>
         </div>
       </div>
 
         <div class="row">
-          <div class="columns">
-          <button href="#" class="button round" id="add_question">Add Question</button>
-          </div>
-        </div>
+          <div class="columns large-12 large-centered text-center">
+          <button href="#" class="button admin" id="add_question">Add Question</button>
 
-      <div class="row">
-        <div class="large-12 large-centered columns">
-          <button id="save_quiz" class="button large">Save Quiz</button>
+          <button id="save_quiz" class="button admin">Save Quiz</button>
         </div>
       </div>
     </fieldset>
   </form>
+</div>
 
   <script>
     document.write('<script src=' +
