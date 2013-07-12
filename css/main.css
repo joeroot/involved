@@ -99,3 +99,7 @@ form.answers button.button.large.selected {
 .answer.callout {
   background-color: #19C74D;
 }
+
+.archive .panel {
+    padding: 10px  !important;
+}
