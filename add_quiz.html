@@ -131,32 +131,39 @@
       event.preventDefault();
       console.log('hoping to save quiz')
 
+      var quiz = new Quiz();
       //save each question
       var questions = $('#quiz_question').each(function(index,item) {
         console.log('iterating through questions')
         var question = new Question();
-        var questionString = $(item).val();
-        var answers = new Array;
-        $('.answer_field .an_answer').each(function(index,item) {
-            answers.push($(item).val());
-            console.log('answers')
+        var questionString = $(q_item).val();
+        //add each answer
+        $('.answer_field .an_answer').each(function(a_index,a_item) {
+            console.log('iterating answers')
+            var answer = new Answer;
+            var answerString = $(a_item).val();
+            answer.save({
+              answer: answerString,
+              votes: '0',
+              correct: false,
+              parent: question,
+            })
         });
 
         question.save({
           question: questionString,
-          answers: answers,
-        }, {
-          success: function(quiz) {
-          console.log('Question saved apparently. Quiz id:' + question.id)
-        },
-          error: function(quiz, error) {
-          // The save failed.
-          // error is a Parse.Error with an error code and description.
-          }
+          quiz: quiz,
         });
-      })
-
-      //save each Quiz
+      });
+      quiz.save()
+        // , {
+        //   success: function(quiz) {
+        //   console.log('Question saved apparently. Quiz id:' + question.id)
+        // },
+        //   error: function(quiz, error) {
+        //   // The save failed.
+        //   // error is a Parse.Error with an error code and description.
+        //   }
 
     })
     //Querying
