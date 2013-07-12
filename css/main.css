@@ -127,3 +127,5 @@ button#intro {
   width:100%;
   background-color: #56C7B2;
 }
+
+.row.extramargin {margin-bottom: 50px auto 10px !important;}
