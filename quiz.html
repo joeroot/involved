@@ -10,7 +10,8 @@
 
 <template name="quiz">
   <div class="quiz">
-  Question {{question.number}}
+  <h1>Question {{question.number}}</h1>
+  <p>{{question.text}}</p>
     {{#each answers}}
       {{> answer}}
     {{/each}}

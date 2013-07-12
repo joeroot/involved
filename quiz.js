@@ -11,7 +11,7 @@ Template.quiz.answers = function () {
 }
 
 Template.quiz.question = function () {
-  return Questions.find({number: 1});
+  return Questions.findOne({number: 1});
 }
 
 // Template.leaderboard.players = function () {
@@ -80,6 +80,7 @@ if (Meteor.isServer) {
       Questions.insert({number: 1, text: q1, answers: answerIds});
     }
   });
+
 }
 
 
