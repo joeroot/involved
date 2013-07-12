@@ -17,7 +17,7 @@
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
-  <script type='application/javascript' src='/vendor/fastclick.js'></script>
+  <script src="js/main.js"></script>
 
 </head>
 
@@ -66,6 +66,24 @@
     </div>
   </form>
 
+  <div class="row question">
+    <div class="large-8 large-centered columns text-center">
+      <h6>Question:</h6>
+      <h3>Hey Michael and Tom, do we have really bad UX? </h3>
+      <!--<h4><span class="timer">30s remaining</span></h4>-->
+    </div>
+  </div>
+
+
+  <script id="user" type="text/html">
+    <div class="row">
+      <div class="large-8 large-centered columns">
+        <input type="checkbox" id="answer-{{ index }}" name="answer" value="{{ index }}">
+        <button class="button large" data-for="answer-{{ index }}">This is another answer to a question</button>
+      </div>
+    </div>
+  </script>
+
   <script>
     document.write('<script src=' +
                    ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
@@ -110,27 +128,18 @@
   <script>
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
+    $(function(){
+      var Quiz = Parse.Object.extend("Quiz");
+      var quizes = new Parse.Query(Quiz);
+      quizes.each(function(quiz){
+        console.log(quiz.get('question'));
+        console.log(quiz.get('answers'));
+      })
+    })
   </script>
 
   <script type="text/javascript">
     $(function(){
-      var submission = Parse.Object.extend("Submission");
-
-      submission.save({
-        question: question,
-        answers: answers,
-
-      }, {
-        success: function(quiz) {
-          console.log('goodness me')
-          // The object was saved successfully.
-        },
-        error: function(quiz, error) {
-          // The save failed.
-          // error is a Parse.Error with an error code and description.
-        }
-      });
-
       $(".answers button.large").each(function(i){
         //new FastClick(this);
       });
