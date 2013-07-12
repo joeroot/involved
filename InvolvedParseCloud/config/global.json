@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Involved": {
+            "applicationId": "EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", 
+            "masterKey": "FwqbbjGLxaaKNhlHPZjkIHCeTFan33FCfYzQEHLs"
+        }, 
+        "_default": {
+            "link": "Involved"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.8"
+    }
+}

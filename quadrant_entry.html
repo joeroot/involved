@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -6,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>INVOLVED</title>
+  <title>Foundation 4</title>
 
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/main.css" />
@@ -14,7 +13,9 @@
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
+  <script type='application/javascript' src='/vendor/fastclick.js'></script>
 
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 
 </head>
 
@@ -22,36 +23,43 @@
 
   <header>
     <div class="row">
-      <div class="large-12 columns text-center">
-       <h2> <img src="img/logo.png" alt="logo" style="height:25px;margin-top:-5px" /> Involved</h2>
+      <div class="large-8 large-centered columns text-center">
+        <h2>Involved</h2>
       </div>
     </div>
   </header>
 
-<div class="row">
- <div class="columns large-8 large-offset-1 large-centered small-10 small-offset-1 text-center">
-      <h1 class="home_title">In lecture quizzes. Solved.</h1>
+  <div class="row question">
+    <div class="large-8 large-centered columns text-center">
+      <h6>Question:</h6>
+      <h3>Hey Michael and Tom, do we have really bad UX? </h3>
+      <!--<h4><span class="timer">30s remaining</span></h4>-->
+    </div>
+  </div>
+
+<div id="row">
+  <div class="large-12 text-center large-centered">
+ <canvas id="entryPad" width="200" height="200">
+
+
+
+ </canvas>
+</div>
 </div>
 
- <div class="columns large-4 large-offset-1 large-centered small-10 small-offset-1 text-center">
+ <script>
+var c=document.getElementById("entryPad");
+var ctx=c.getContext("2d");
+ctx.moveTo(100,0);
+ctx.lineTo(100,300);
+ctx.stroke();
 
-<form class="class_code" action="quiz.html">
-  <input class="intro" type="text" name="class_code" placeholder="Enter lecturer's code" required />
-  <button class="intro" class="button">Answer question</button>
-</form>
-</div>
+var ctx2=c.getContext("2d");
+ctx2.moveTo(100,300);
+ctx2.lineTo(200,500);
+ctx2.stroke();
 
-
- <div class="columns large-8 large-offset-1 large-centered small-10 small-offset-1 text-center">
-<h4 class="subheader">
-  <p class="subheader">Put your hand down. Involved makes setting quizzes in lectures super simple. There's nothing to download or install, students can answer questions in their browser or on their smartphone. Results appear instantly on lecturer's screens.</p>
-
-    <p><a href="add_quiz.html">Want to try</a>?</p>
-</h4>
-
-</div>
- </div>
-
+ </script>
 
   <script>
     document.write('<script src=' +
@@ -97,5 +105,22 @@
   <script>
     $(document).foundation();
   </script>
+
+  <script type="text/javascript">
+    $(function(){
+      $(".answers button.large").click(function(e){
+        var for_id = $(this).data("for");
+        if ($(this).hasClass("selected")) {
+          $("#" + for_id).prop('checked', false); 
+          $(this).removeClass("selected");
+        } else {
+          $("#" + for_id).prop('checked', true); 
+          $(this).addClass("selected");
+        }
+        e.preventDefault();
+      });
+    });
+  </script>
+
 </body>
 </html>
