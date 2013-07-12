@@ -188,6 +188,10 @@ input.intro {
 
 .row.extramargin {margin-bottom: 50px auto 10px !important;}
 
+.hidden {
+  display: none;
+}
+
 .home_title {
   margin-top: 50px;
   margin-bottom: 50px;
