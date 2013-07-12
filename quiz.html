@@ -1,0 +1,27 @@
+<head>
+  <title>Leaderboard</title>
+</head>
+
+<body>
+  <div id="outer">
+    {{> quiz}}
+  </div>
+</body>
+
+<template name="quiz">
+  <div class="quiz">
+  Quiz
+    {{question}}
+    {{#each answers}}
+      {{> answer}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="answer">
+  <div class="answer">
+  Answer
+    <a href="#"><span class="option">{{option}}</span></a>
+  </div>
+</template>
+
