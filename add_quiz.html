@@ -67,7 +67,7 @@
 
     <div class="row">
     <div class="large-4 columns text-right"><h5>Reference Code:</h5></div>
-    <div class="large-8 columns"><input type="text" class="ref" id="reference_code" placeholder="A code you'll give your students to see the quiz" size="10" /></dov>
+    <div class="large-8 columns"><input type="text" name="slug" class="ref" id="reference-code" placeholder="A code you'll give your students to see the quiz" size="10" /></dov>
     </div>
 
 
@@ -186,6 +186,7 @@
       console.log('hoping to save quiz')
 
       var quiz = new Quiz();
+      var slug = new $('#reference-code').val()
       //save each question
       var questions = $('#quiz-question').each(function(q_index,q_item) {
         console.log('iterating through questions')
@@ -194,7 +195,7 @@
         //add each answer
         $('.answer-field .an-answer').each(function(a_index,a_item) {
             console.log('iterating answers')
-            var answer = new Answer;
+            var answer = new Answer();
             var answerString = $(a_item).val();
             answer.save({
               answer: answerString,
@@ -210,10 +211,12 @@
         });
       });
       quiz.save({
-        ref: 214,
+
+        slug: slug,
       }, {  
         success: function(quiz) {
-        console.log('Quiz saved apparently. Quiz id:' + quiz.id)
+        console.log('Quiz saved apparently. Quiz id:' + slug);
+        // window.location.replace("question_list.html?slug="+slug);
       },
         error: function(quiz, error) {
         // The save failed.
