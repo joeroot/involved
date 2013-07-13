@@ -320,3 +320,33 @@ button.admin.alter {
   background-color: #21BDD8;
   font-size: 24px;
 }
+
+.results-page h4 {
+  margin-bottom:0;
+  padding-bottom:0;
+  font-weight:500;
+}
+
+.results-page .answer-percent {
+  font-size:18px;
+}
+
+.results-page .answer {
+  border-radius:4px;
+}
+
+.results-page .answer .meter {
+  border-radius:2px;
+  background:#F96E5F;
+}
+
+.results-page .answer .progress{
+  margin-bottom:0;
+  background:#FFF;
+  border-radius:3px;
+}
+
+.results-page .answer.correct .meter {
+  background:#8EC53F;
+  border-color:#8EC53F;
+}

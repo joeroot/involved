@@ -109,8 +109,8 @@
 
   $('#questions').on('click','.ask', function(){
     var qid = $(this).parent().data('id');
-      var triggered = channel.trigger('client-'+slug, { "question_id": qid, "action": "start" });
-
+    var triggered = channel.trigger('client-'+slug, { "question_id": qid, "action": "start" });
+    console.log("clicked");
   });
   $('#questions').on('click','.stop', function(){
     var qid = $(this).parent().data('id');

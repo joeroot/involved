@@ -17,7 +17,7 @@
   <script src="js/main.js"></script>
 </head>
 
-<body>
+<body class="results-page">
 
   <header>
     <div class="row">
@@ -39,9 +39,12 @@
   <div class="columns large-8 large-offset-2">
   <div id="answer-template" class="hidden">
     <div id="answer" class="answer row panel answer">
-      <div class="large-4 columns text-center"><h4><span class="answer-value">Absolutely</span> - <span class="answer-percent">0</span></h4></div>
+      <div class="large-3 columns text-center"><h4><span class="answer-value">Absolutely</span> </h4></div>
       <div class="large-8 columns">
         <div class="progress"><span class="meter secondary" style="width:0%"></span></div>
+      </div>
+      <div class="large-1 columns">
+        <h4><span class="answer-percent">0</span></h4>
       </div>
     </div>
     </div>
@@ -101,7 +104,7 @@
       var template = $('#answer-template').clone();
       $(template).find('.answer-value').text(text);
       if (correct) {
-        $(template).children('#answer').addClass('callout');
+        $(template).children('#answer').addClass('correct');
       }
       $(template).children('div').attr("id","answer-"+answer);
       $('.results').children('div').append(template.html());
