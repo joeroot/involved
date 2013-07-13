@@ -117,6 +117,8 @@ button.admin {
   box-shadow: none;
   font-weight: 600;
   border-radius: 5px;
+  margin-top: 3px;
+  margin-left: 3px;
 }
 
 button.delete {
@@ -235,7 +237,7 @@ input.intro {
 }
 
 .question.add {
-  background-color: #EFE8E5;
+  //background-color: #EFE8E5;
   padding-bottom: 10px;
   margin-bottom: 10px !important;
 }
@@ -246,11 +248,15 @@ button.admin.alter {
 }
 
 .custom .correct {
-  background-color: green;
+  bacolor: green;
 }
 
 .custom div {
   padding: 5px !important;
+}
+
+.question-template .row div {
+  padding: 2px !important;
 }
 
 /* index */
