@@ -49,6 +49,10 @@ header h2 {
   margin:0;
 }
 
+header a:hover {
+  color:#FFF;
+}
+
 header h2 a {
   color:#FFF;
 }
@@ -229,4 +233,9 @@ input.intro {
 button.admin.alter {
   height: 32px !important;
   padding: -20px !important;
+}
+
+/* index */
+button.intro {
+  margin-left: 10px;
 }
