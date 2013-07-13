@@ -275,12 +275,12 @@ button.admin.alter {
 }
 
 .add-quiz-page input[type=text] {
+  font-size:18px;
   border-radius:4px;
   box-shadow:none;
   color:#333;
   font-weight:400;
 }
-
 .question-list-page .button {
   font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
   border-radius:5px;
@@ -302,13 +302,6 @@ button.admin.alter {
 .question-list-page .button.success {background-color:#56C7B2;}
 .question-list-page .button.stop {background-color:#F8422D;}
 .question-list-page .button.result {background-color:#21BDD8;}
-
-
-
-
-.question-template input[type=text]{
-    font-size:18px;
-}
 
 .add-question-button {
   float:right;
