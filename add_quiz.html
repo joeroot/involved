@@ -5,12 +5,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>Foundation 4</title>
+  <title>Create Quiz - Involved</title>
 
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/flat-ui.css" />
-
 
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
@@ -32,82 +30,56 @@
   </header>
 
   <div class="large-8 columns large-centered large-offset-2">
+
+
   <form>
-    <fieldset>
-      <legend>Add a quiz</legend>
+    <h3>Create your quiz</h3>
+    <div class="row" id="questions-container">
+      <div class="question_template">
+        <fieldset>
+          <legend>Question</legend>
 
-      <div class="row">
-        <div class="question_template">
+            <div class="question row">
+              <div class="large-2 columns"><label><h5>Question</h5></label></div>
+              <div class="large-8 columns"><input id="quiz_question" type="text" placeholder="Question"></div>
+              <div class="large-2 columns"></div>
+            </div>
 
-        <div class="row">
-          <div class="large-2 columns"><label><h5>Question</h5></label></div>
-          <div class="large-8 columns"><input id="quiz_question" type="text" placeholder="Enter the question you'd like displayed to the students"></div>
-          <div class="large-2 columns"></div>
-        </div>
+            <div id="answers-container">
+              <div class="answer_template">
+                <div class="row answer_field">
+                  <div class="large-12 columns">
 
-        <div id="answers">
-          <div class="answer_template">
-            <div class="row answer_field">
-              <div class="large-12 columns">
+                    <div class="row">
+                      <div class="large-2 columns"><label><h5>Answer</h5></label></div>
+                      <div class="large-1 columns"><input type="radio" class="correct" id="correct_answer" /></div>
+                      <div class="large-6 columns"><input type="text" class='an_answer' placeholder="Enter a possible answer"></div>
+                      <button href="#" class="button admin" id="delete_answer">-</button>
+                      <button href="#" class="button admin" id="add_answer">+</button>
+                    </div>
 
-                <div class="row">
-                  <div class="large-2 columns"><label><h5>Answer</h5></label></div>
-                  <div class="large-8 columns"><input type="text" class='an_answer' placeholder="Enter one of the possible answers"></div> 
-                  <div class="large-2 columns"> <a href="#" id="delete_answer"><i class="icon-remove icon-2x"></i></a> <input type="radio" class="correct" id="correct_answer" />
                   </div>
                 </div>
-
-                <button href="#" class="button round" id="add_answer">Add answer</button>
-
-              </div>
+              </div> 
             </div>
-          </div> 
-        </div>
-
-
-
-        <div class="row">
-          <div class="columns">
-          </div>
-        </div>
+          </legend>
+        </fieldset>
       </div>
-
+    </div>
+      <button href="#" class="button admin" id="add_question">Add Question</button>
         <div class="row">
           <div class="columns large-12 large-centered text-center">
-          <button href="#" class="button admin" id="add_question">Add Question</button>
-
           <button id="save_quiz" class="button admin">Save Quiz</button>
         </div>
       </div>
-    </fieldset>
-  </form>
-</div>
+    </form>
+  </div>
 
   <script>
-    document.write('<script src=' +
-                   ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
-                   '.js><\/script>')
+  document.write('<script src=' + ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') + '.js><\/script>')
   </script>
 
   <script src="js/foundation.min.js"></script>
-  <!--
-
-  <script src="js/foundation/foundation.js"></script>
-  <script src="js/foundation/foundation.alerts.js"></script>
-  <script src="js/foundation/foundation.clearing.js"></script>
-  <script src="js/foundation/foundation.cookie.js"></script>
-  <script src="js/foundation/foundation.dropdown.js"></script>
-  <script src="js/foundation/foundation.forms.js"></script>
-  <script src="js/foundation/foundation.joyride.js"></script
-  <script src="js/foundation/foundation.magellan.js"></script>
-  <script src="js/foundation/foundation.orbit.js"></script>
-  <script src="js/foundation/foundation.reveal.js"></script>
-  <script src="js/foundation/foundation.section.js"></script>
-  <script src="js/foundation/foundation.tooltips.js"></script>
-  <script src="js/foundation/foundation.topbar.js"></script>
-  <script src="js/foundation/foundation.interchange.js"></script>
-  <script src="js/foundation/foundation.placeholder.js"></script>
-  -->
 
   <script>
     $(document).foundation();
@@ -117,50 +89,61 @@
 
     $('#add_answer').click(function() {
       event.preventDefault();
-      $('#answers').append($('.answer_template').html());
+      $('#answers-container').append($('.answer_template').html());
     });
 
     $('#add_question').click(function() {
       event.preventDefault();
-      $('#answers').append($('.question_template').html());
+      $('#questions-container').append($('.question_template').html());
     });
     
 
     var Quiz = Parse.Object.extend("Quiz");
     var Question = Parse.Object.extend("Question");
+    var Answer = Parse.Object.extend("Answer");
+
 
     $('#save_quiz').click(function(event){
       event.preventDefault();
       console.log('hoping to save quiz')
 
+      var quiz = new Quiz();
       //save each question
-      var questions = $('#quiz_question').each(function(index,item) {
+      var questions = $('#quiz_question').each(function(q_index,q_item) {
         console.log('iterating through questions')
         var question = new Question();
-        var questionString = $(item).val();
-        var answers = new Array;
-        $('.answer_field .an_answer').each(function(index,item) {
-            answers.push($(item).val());
-            console.log('answers')
+        var questionString = $(q_item).val();
+        //add each answer
+        $('.answer_field .an_answer').each(function(a_index,a_item) {
+            console.log('iterating answers')
+            var answer = new Answer;
+            var answerString = $(a_item).val();
+            answer.save({
+              answer: answerString,
+              votes: '0',
+              correct: false,
+              parent: question,
+            })
         });
 
         question.save({
           question: questionString,
-          answers: answers,
-        }, {
-          success: function(quiz) {
-          console.log('Question saved apparently. Quiz id:' + question.id)
-        },
-          error: function(quiz, error) {
-          // The save failed.
-          // error is a Parse.Error with an error code and description.
-          }
+          quiz: quiz,
         });
-      })
+      });
+      quiz.save({
+        ref: 214,
+      }, {  
+        success: function(quiz) {
+        console.log('Quiz saved apparently. Quiz id:' + quiz.id)
+      },
+        error: function(quiz, error) {
+        // The save failed.
+        // error is a Parse.Error with an error code and description.
+        }
+      });
+    });
 
-      //save each Quiz
-
-    })
     //Querying
     var quizes = new Parse.Query(Quiz);
     quizes.each(function(quiz){console.log(quiz.get('question'))})
