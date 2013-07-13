@@ -46,7 +46,7 @@
 
       </div>
 
-      <div class="row">  
+      <div class="row">
         <div class="columns large-4"></div>
         <div class="columns large-8">
           <button href="#" class="button admin add-question-button">Add Question</button>
@@ -184,6 +184,7 @@
       }, {
         success: function(quiz) {
           console.log('Quiz saved apparently. Quiz id:' + slug);
+          setInterval(function(){window.location = String("question_list.html?slug="+slug)},1000);
           // window.location.replace("question_list.html?slug="+slug);
         },
         error: function(quiz, error) {
