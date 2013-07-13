@@ -43,7 +43,7 @@
     <div class="row" id="questions-container">
 
     </div>
-    
+
       <button href="#" class="button admin add-question-button">Add Question</button>
         <div class="row">
           <div class="columns large-12 large-centered text-center">
@@ -71,7 +71,7 @@
             <div id="answers-container">
 
             </div>
-            
+
           </legend>
         </fieldset>
       </div>
@@ -142,7 +142,7 @@
       addQuestion(questionNumber);
       questionNumber += 1;
     });
-    
+
 
     var Quiz = Parse.Object.extend("Quiz");
     var Question = Parse.Object.extend("Question");
@@ -155,46 +155,51 @@
 
       var quiz = new Quiz();
       var slug = new $('#reference-code').val()
-      //save each question
-      var questions = $('.question-field').each(function(q_index,q_item) {
-        console.log('iterating through questions');
-        console.log($(q_item).val())
-        var question = new Question();
-        var questionString = $(q_item).val();
-        console.log('question string:'+ questionString)
-        //add each answer
-        $(q_item).find('.an-answer').each(function(a_index,a_item) {
-            console.log('iterating answers')
-            var answer = new Answer();
-            var answerString = $(a_item).val();
-            console.log(answerString);
-            answer.save({
-              answer: answerString,
-              votes: 0,
-              correct: false,
-              parent: question,
-            })
-                      console.log('answer saved')
-        });
-
-        question.save({
-          question: questionString,
-          quiz: quiz,
-        });
-                  console.log('question saved')
-      });
-      console.log('about to save quiz')
       quiz.save({
         slug: slug,
-      }, {  
+      }, {
         success: function(quiz) {
         console.log('Quiz saved apparently. Quiz id:' + slug);
         // window.location.replace("question_list.html?slug="+slug);
       },
         error: function(quiz, error) {
-        // The save failed.
+        console.log(quiz)
         // error is a Parse.Error with an error code and description.
         }
+      });
+
+      $('.question-template').each(function(quiz_index,quiz_item) {
+
+        var the_question = $(quiz_item).find('.question-field')
+
+        console.log($(the_question).val())
+        var question = new Question();
+        var questionString = $(the_question).val();
+        console.log('question string:'+ questionString)
+
+      $(quiz_item).find('.an-answer').each(function(a_index,a_item) {
+          console.log('iterating answers')
+          var answer = new Answer();
+          var answerString = $(a_item).val();
+          console.log(answerString);
+          answer.save({
+            answer: answerString,
+            votes: 0,
+            correct: false,
+            parent: question,
+          })
+          console.log('answer saved')
+      });
+
+                    console.log('question saved')
+
+      console.log('about to save quiz')
+
+      question.save({
+        question: questionString,
+        quiz: quiz,
+      });
+
       });
     });
 
