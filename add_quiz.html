@@ -34,8 +34,12 @@
   <form class="custom">
     <h3>Create your quiz</h3>
 
-    Reference Code:<input type="text" class="ref" id="reference_code" placeholder="reference code"/>
-    
+    <div class="row">
+    <div class="large-4 columns text-right"><h5>Reference Code:</h5></div>
+    <div class="large-8 columns"><input type="text" class="ref" id="reference_code" placeholder="A code you'll give your students to see the quiz" length="15" /></dov>
+    </div>
+
+
     <div class="row" id="questions-container">
 
     </div>
@@ -62,11 +66,13 @@
             <div class="add question row">
               <div class="large-2 columns"><label><h5>Question</h5></label></div>
               <div class="large-8 columns"><input id="quiz_question-{{questionNumber}}" type="text" placeholder="Question" required></div>
-              <div class="large-2 columns"></div>
+              <div class="large-2 columns">
+                             <button href="#" class="button admin" id="add-answer">+</button>
+              </div>
             </div>
 
             <div id="answers-container">
-             <button href="#" class="button admin" id="add-answer">+</button>
+
             </div>
             
           </legend>
@@ -80,10 +86,10 @@
                 <div class="large-12 columns">
                   <div class="row">
                     <div class="large-2 columns"><label><h5>Answer</h5></label></div>
-                    <div class="large-1 columns"><input type="radio" class="correct" id="correct-answer" /></div>
+                    <div class="large-1 columns text-center">Correct<label for="radio1"><input name="radio1" type="radio" id="correct-answer" style="display:none;"><span class="custom radio checked correct"></span></label>
+</div>
                     <div class="large-6 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
                     <button href="#" class="button admin" id="remove-answer">-</button>
-                    <button href="#" class="button admin" id="add-answer">+</button>
                   </div>
                 </div>
               </div>
