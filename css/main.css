@@ -77,6 +77,11 @@ form.answers button.button.large.selected {
   background-image: -webkit-image-set(url(/img/tick.png) 1x, url(/img/tick@2x.png) 2x);
 }
 
+form.answers button.button.large.true.reveal{
+  background:#8ec53f url('/img/tick.png') 20px center no-repeat;
+}
+
+
 form.answers input[type=checkbox] {
   display:none;
 }
