@@ -270,3 +270,15 @@ button.admin.alter {
 .question-template .row div {
   padding: 2px !important;
 }
+
+.radio {
+  margin-top:9px;
+}
+
+.add-quiz-page input[type=text] {
+  font-size:18px;
+  border-radius:4px;
+  box-shadow:none;
+  color:#333;
+  font-weight:400;
+}

@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body class="add-quiz-page">
 
   <header>
     <div class="row">
@@ -76,9 +76,9 @@
               <div class="row">
                 <div class="large-12 columns">
                   <div class="row">
+                    <div class="large-8 columns header">Answer</div>
+                    <div class="large-2 columns text-center header">Correct</div>
                     <div class="large-2 columns"></div>
-                    <div class="large-1 columns text-center">Correct</div>
-                    <div class="large-7 columns"></div>
                   </div>
                 </div>
               </div>
@@ -95,12 +95,19 @@
     <div class="row answer-block" answer-id="{{answerNumber}}">
                 <div class="large-12 columns">
                   <div class="row">
-                    <div class="large-2 columns"><label><h5>Answer</h5></label></div>
-                    <div class="large-1 columns text-center"><label for="radio1"><input name="radio1" type="radio" id="correct-answer" style="display:none;"><span class="custom radio correct"></span></label>
-</div>
-                    <div class="large-7 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
-                    <button href="#" class="button admin small remove-answer-button">-</button>
-                    <button href="#" class="button admin small add-answer-button">+</button>
+                    <div class="large-8 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
+                    
+                    <div class="large-2 columns text-center">
+                      <label for="radio1">
+                        <input name="radio1" type="radio" id="correct-answer" style="display:none;">
+                        <span class="custom radio correct"></span>
+                       </label>
+                    </div>
+
+                    <div class="large-2 columns">
+                      <button href="#" class="button admin small remove-answer-button">-</button>
+                      <button href="#" class="button admin small add-answer-button">+</button>
+                    </div>
                   </div>
                 </div>
               </div>
