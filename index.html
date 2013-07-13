@@ -36,10 +36,10 @@
 <form class="class_code" action="quiz.html">
       <div class="row collapse">
         <div class="small-10 columns">
-          <input class="intro" type="text" name="id" placeholder="Enter lecture code" required />
+          <input class="intro" type="text" name="slug" placeholder="Enter lecture code" required />
         </div>
         <div class="small-2 columns">
-          <button class="intro" class="button intro">Go</button>
+          <button id="submit-button" class="intro" class="button intro">Go</button>
         </div>
       </div>
 </form>
@@ -66,6 +66,9 @@
 
   <script>
     $(document).foundation();
+    $('#submit-button').click(function() {
+      $('form').submit();
+    });
   </script>
 </body>
 </html>
