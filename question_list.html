@@ -40,13 +40,13 @@
 <div class="row archive results">
   <div id="questions" class="columns large-8 large-offset-2">
     <div id="question-template" class="row question hidden">
-      <div class="columns large-8">
+      <div class="columns large-6">
         <h4 style="float:left">Do you love me?</h4>
       </div>
-      <div class="columns large-4 actions">
+      <div class="columns large-6 actions">
         <button class="button success ask">Ask</button>
         <button class="button alert stop">Stop</button>
-        <button class="button alert">Results</button>
+        <button class="button alert result">Results</button>
       </div>
     </div>
   </div>
@@ -108,15 +108,22 @@
   }
 
   $('#questions').on('click','.ask', function(){
-    var qid = $(this).data('id')
+    var qid = $(this).parent().data('id');
       var triggered = channel.trigger('client-'+slug, { "question_id": qid, "action": "start" });
 
   });
   $('#questions').on('click','.stop', function(){
-    var qid = $(this).data('id')
+    var qid = $(this).parent().data('id');
     var triggered = channel.trigger('client-'+slug, { "question_id": qid, "action": "stop" });
 
   });
+
+  $('#questions').on('click','.result', function(){
+    var qid = $(this).parent().data('id');
+    var wind = window.open('results.html?questionId='+qid, '_blank');
+    wind.focus();
+  });
+
   function getInformation(slug) {
       if (slug == 'null') {
         alert('No quiz ID provided in URL');
