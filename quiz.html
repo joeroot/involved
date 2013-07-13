@@ -55,12 +55,12 @@
       </div>
     </div>
 
-    <form class="answers">
+    <form class="answers" id="answers">
       {{#answers}}
       <div class="row">
         <div class="large-8 large-centered columns">
           <input type="checkbox" id="answer-{{ index }}" name="answer" value="{{ index }}">
-          <button class="button large" data-for="answer-{{ index }}">{{ answer }}</button>
+          <button class="button large" data-object-id="{{ object_id }}" data-for="answer-{{ index }}">{{ answer }}</button>
         </div>
       </div>
       {{/answers}}
@@ -69,7 +69,7 @@
 
   <script>
     document.write('<script src=' +
-                   ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+                   ('__proto__' in {} ? 'js/vendor/jquery' : 'js/vendor/jquery') +
                    '.js><\/script>')
   </script>
 
@@ -111,29 +111,28 @@
   <script>
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
+    var Answer = Parse.Object.extend("Answer");
+    var Question = Parse.Object.extend("Question");
 
     function loadQuestion(data) {
       var id = data.question_id;
+      console.log(id);
 
-      var Question = Parse.Object.extend("Question");
       var questions = new Parse.Query(Question);
 
       questions.get(id, {
         success: function(question) {
           var answers = [];
 
-          var Answer = Parse.Object.extend("Answer");
           var answer_relation= new Parse.Query(Answer);
           var answers = [];
 
           answer_relation.equalTo("parent", question).find({
             success: function(results) {
               answers = results;
-              console.log(answers);
 
               answers = $.map(answers, function(answer, index) {
-                console.log(answer);
-                return {index: index, answer: answer.get("answer")}
+                return {index: index, answer: answer.get("answer"), object_id: answer.id}
               });
 
               var dom = ich.question({
@@ -176,17 +175,52 @@
       $("#question-container").html(dom);
     }
 
+    function stopQuestion(data) {
+      $(".answers button.large:not(.selected)").hide(500);
+
+      var answers_length = $(".answers button.large.selected").length;
+      var answers = new Parse.Query(Answer);
+
+      $(".answers button.large.selected").each(function(){
+        answer_id = $(this).data("object-id");
+
+        answers.get(answer_id, {
+          success: function(answer) {
+            answer.increment("score", 1/answers_length);
+            answer.save();
+          },
+          error: function(answer) {
+          }
+        });
+      });
+    }
+
+    function handleQuestion(data){
+      if (data.action == "start") {
+        loadQuestion(data);
+      } else {
+        clearQuestion();
+      }
+    }
+
     $(function() {
       clearQuestion();
       loadQuestion({question_id: "f90vJiRJg3"});
 
+      $("a.submit").click(function(e){
+        stopQuestion({question_id: "f90vJiRJg3"});
+        e.preventDefault();
+      });
+
       var pusher = new Pusher('7638841659acb7e9cdfd', { authEndpoint: 'http://pacific-fjord-7492.herokuapp.com/auth', authTransport: 'jsonp' });
 
-      //var quiz_id = getURLParameter('id');
-      //var channel = pusher.subscribe('private-'+quiz_id);
-      //channel.bind('client-'+quiz_id, loadQuestion);
+      var quiz_id = getURLParameter('id');
+      var channel = pusher.subscribe('private-'+quiz_id);
+      channel.bind('client-'+quiz_id, handleQuestion);
     });
 
   </script>
+
+  <a hred="#" class="submit">Submit</a>
 </body>
 </html>
