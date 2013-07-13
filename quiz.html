@@ -194,7 +194,7 @@
 
         answers.get(answer_id, {
           success: function(answer) {
-            answer.increment("votes", 1/answers_length);
+            answer.increment("votes", 1);
             answer.save();
           },
           error: function(answer) {
