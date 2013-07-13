@@ -40,6 +40,7 @@
     <div class="row">
       <div class="large-8 large-centered columns">
         <div class="empty-question">
+          <!--<img src="/img/load.gif" alt="Loading..." />-->
           <h2>Please wait for your lecturer to send over a question</h2>
         </div>
       </div>
@@ -119,32 +120,46 @@
 
       questions.get(id, {
         success: function(question) {
-          var answers = question.get("answers");
-          answers = $.map(answers, function(answer, index) {
-            return {index: index, answer: answer}
-          });
+          var answers = [];
 
-          var dom = ich.question({
-            question: question.get("question"),
-            answers: answers
-          });
+          var Answer = Parse.Object.extend("Answer");
+          var answer_relation= new Parse.Query(Answer);
+          var answers = [];
 
-          $("#question-container").html(dom);
+          answer_relation.equalTo("parent", question).find({
+            success: function(results) {
+              answers = results;
+              console.log(answers);
 
-          $(".answers button.large").each(function(i){
-            //new FastClick(this);
-          });
+              answers = $.map(answers, function(answer, index) {
+                console.log(answer);
+                return {index: index, answer: answer.get("answer")}
+              });
 
-          $(".answers button.large").on('click', function(e){
-            var for_id = $(this).data("for");
-            if ($(this).hasClass("selected")) {
-              $("#" + for_id).prop('checked', false);
-              $(this).removeClass("selected");
-            } else {
-              $("#" + for_id).prop('checked', true);
-              $(this).addClass("selected");
+              var dom = ich.question({
+                question: question.get("question"),
+                answers: answers
+              });
+
+              //$("#question-container").slideUp(300);
+              $("#question-container").html(dom);
+
+              $(".answers button.large").each(function(i){
+                //new FastClick(this);
+              });
+
+              $(".answers button.large").on('click', function(e){
+                var for_id = $(this).data("for");
+                if ($(this).hasClass("selected")) {
+                  $("#" + for_id).prop('checked', false);
+                  $(this).removeClass("selected");
+                } else {
+                  $("#" + for_id).prop('checked', true);
+                  $(this).addClass("selected");
+                }
+                e.preventDefault();
+              });
             }
-            e.preventDefault();
           });
         },
         error: function(object, error) {
@@ -163,13 +178,14 @@
 
     $(function() {
       clearQuestion();
-      //loadQuestion("pt32Xy7lpM");
+      loadQuestion({question_id: "f90vJiRJg3"});
 
-      var pusher = new Pusher('7638841659acb7e9cdfd', { authEndpoint: '/pusher_auth.php' });
+      //var pusher = new Pusher('7638841659acb7e9cdfd', { authEndpoint: '/pusher_auth.php' });
+      //var pusher = new Pusher('7638841659acb7e9cdfd');
 
-      var quiz_id = getURLParameter('id');
-      var channel = pusher.subscribe('private-'+quiz_id);
-      channel.bind('client-'+quiz_id, loadQuestion);
+      //var quiz_id = getURLParameter('id');
+      //var channel = pusher.subscribe('private-'+quiz_id);
+      //channel.bind('client-'+quiz_id, loadQuestion);
     });
 
   </script>
