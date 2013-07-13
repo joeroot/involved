@@ -138,13 +138,13 @@
               $("[id^=answer-].answer").remove();
               var totalVotes = 0;
               for (var i = 0; i < answers.length; i++) {
-                totalVotes += parseInt(answers[i].get('votes'));
+                totalVotes += parseFloat(answers[i].get('votes'));
               }
               for (var i = 0; i < answers.length; i++) {
                 var answer = answers[i];
                 var chr = String.fromCharCode(97 + i);
                 addAnswer(chr, answer.get('answer'), answer.get('correct'));
-                var percentage = (parseInt(answer.get('votes'))/totalVotes)*100;
+                var percentage = Math.round((parseFloat(answer.get('votes'))/totalVotes)*100);
                 setScore(chr,percentage);
               }
             }
