@@ -133,6 +133,11 @@ input.intro {
   text-align: center;
 }
 
+.custom input {
+  border-radius: 5px;
+  border: 2px #56C7B2 solid;
+}
+
 
 .question {
   padding:15px 0;
@@ -233,6 +238,10 @@ input.intro {
 button.admin.alter {
   height: 32px !important;
   padding: -20px !important;
+}
+
+.custom .correct {
+  background-color: green;
 }
 
 /* index */
