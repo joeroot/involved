@@ -7,6 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
   <title>Foundation 4</title>
+  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
 
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/main.css" />
@@ -40,10 +41,12 @@
   <div id="questions" class="columns large-8 large-offset-2">
     <div id="question-template" class="row question hidden">
       <div class="columns large-8">
-        <h4 style="float:left">Do you love me?</h4> 
+        <h4 style="float:left">Do you love me?</h4>
       </div>
       <div class="columns large-4">
-        <button class="button success">Ask</button> <button class="button alert">Results</button>
+        <button class="button success ask">Ask</button>
+        <button class="button alert stop">Stop</button>
+        <button class="button alert">Results</button>
       </div>
     </div>
   </div>
@@ -91,47 +94,66 @@
 
   -->
 <script>
+  var pusher = new Pusher('7638841659acb7e9cdfd', { authEndpoint: 'http://pacific-fjord-7492.herokuapp.com/auth', authTransport: 'jsonp' });
+  var slug = getURLParameter('slug');
+  var channel = pusher.subscribe('private-'+slug);
+  Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
+  function addQuestion(question, questionId, slug) {
+      var template = $('#question-template').clone();
+      $(template).attr('id','question-'+questionId);
+      template.find('.ask').data('id', questionId);
+      template.find('.stop').data('id', questionId);
+      $(template).removeClass('hidden');
+      $(template).find('h4').text(question);
+      $('#questions').append(template);
+  }
 
-function addQuestion(question, questionId) {
-    var template = $('#question-template').clone();
-    $(template).attr('id','question-'+questionId);
-    $(template).removeClass('hidden');
-    $(template).find('h4').text(question);
-    $('#questions').append(template);
-}
+  $('#questions').on('click','.ask', function(){
+    var qid = $(this).data('id')
+      var triggered = channel.trigger('client-'+slug, { "question_id": qid, "action": "start" });
 
-  function getInformation(quizId) {
-      if (quizId == 'null') {
+  });
+  $('#questions').on('click','.stop', function(){
+    var qid = $(this).data('id')
+    var triggered = channel.trigger('client-'+slug, { "question_id": qid, "action": "stop" });
+
+  });
+  function getInformation(slug) {
+      if (slug == 'null') {
         alert('No quiz ID provided in URL');
         return;
       }
       var Quiz = Parse.Object.extend("Quiz");
       var Question = Parse.Object.extend("Question");
       var query = new Parse.Query(Quiz);
-      query.get(quizId, {
+      query.equalTo('slug', slug);
+      query.find({
       success: function(quiz) {
         query = new Parse.Query(Question);
-        query.equalTo("quiz",quiz);
+        query.equalTo("quiz",quiz[0]);
         query.find({
             success: function(questions) {
+
               for (var i = 0; i < questions.length; i++) {
                 var question = questions[i];
-                addQuestion(question.get('question'), question.get('objectId'));
+                addQuestion(question.get('question'), question.id);
               }
+            },
+            error: function(obj, error){
+              console.log(obj)
+
             }
         });
       },
       error: function(object, error) {
-        // The object was not retrieved successfully.
-        // error is a Parse.Error with an error code and description.
+        console.log(error)
       }
     });
   }
 
     $(document).foundation();
-    Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
-    var quizId = getURLParameter('quizId');
-    getInformation(quizId);
+
+    getInformation(slug);
 
   </script>
 </body>
