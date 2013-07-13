@@ -270,16 +270,11 @@ button.admin.alter {
   padding:20px 30px;
 }
 
-.question-template .row div {
-  padding: 2px !important;
-}
-
 .radio {
   margin-top:9px;
 }
 
 .add-quiz-page input[type=text] {
-  font-size:18px;
   border-radius:4px;
   box-shadow:none;
   color:#333;
@@ -311,3 +306,17 @@ button.admin.alter {
 
 
 
+.question-template input[type=text]{
+    font-size:18px;
+}
+
+.add-question-button {
+  float:right;
+}
+
+#save-quiz {
+  margin: 10px;
+  padding: 20px 140px;
+  background-color: #21BDD8;
+  font-size: 24px;
+}
