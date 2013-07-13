@@ -64,7 +64,7 @@
 
             <div class="add question row">
               <div class="large-2 columns"><label><h5>Title</h5></label></div>
-              <div class="large-10 columns"><input type="text" placeholder="Question" required></div>
+              <div class="large-10 columns"><input class="question-field" type="text" placeholder="Question" required></div>
             </div>
 
             <div id="answers-container">
@@ -155,35 +155,39 @@
       var quiz = new Quiz();
       var slug = new $('#reference-code').val()
       //save each question
-      var questions = $('#quiz-question').each(function(q_index,q_item) {
+      var questions = $('.question-field').each(function(q_index,q_item) {
         console.log('iterating through questions')
         var question = new Question();
         var questionString = $(q_item).val();
+        console.log('question string:'+ questionString)
         //add each answer
-        $('.answer-field .an-answer').each(function(a_index,a_item) {
+        $('.an-answer').each(function(a_index,a_item) {
             console.log('iterating answers')
             var answer = new Answer();
             var answerString = $(a_item).val();
+            console.log(answerString);
             answer.save({
               answer: answerString,
-              votes: '0',
+              votes: 0,
               correct: false,
               parent: question,
             })
+                      console.log('answer saved')
         });
 
         question.save({
           question: questionString,
           quiz: quiz,
         });
+                  console.log('question saved')
       });
+      console.log('about to save quiz')
       quiz.save({
-
         slug: slug,
       }, {  
         success: function(quiz) {
         console.log('Quiz saved apparently. Quiz id:' + slug);
-        // window.location.replace("question_list.html?slug="+slug);
+        window.location.replace("question_list.html?slug="+slug);
       },
         error: function(quiz, error) {
         // The save failed.
