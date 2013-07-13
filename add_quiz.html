@@ -14,6 +14,7 @@
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
+  <script type="text/javascript" src="js/vendor/ICanHaz.js"></script>
 
 </head>
 
@@ -38,38 +39,11 @@
     <div class="large-8 columns"><input type="text" class="ref" id="reference_code" placeholder="A code you'll give your students to see the quiz"/></dov>
     </div>
 
+
     <div class="row" id="questions-container">
-      <div class="question_template">
-        <fieldset>
-          <legend>Question</legend>
 
-            <div class="add question row">
-              <div class="large-2 columns"><label><h5>Question</h5></label></div>
-              <div class="large-8 columns"><input id="quiz_question" type="text" placeholder="Question" required></div>
-              <div class="large-2 columns"></div>
-            </div>
-
-            <div id="answers-container">
-              <div class="answer-template">
-                <div class="row answer-field">
-                  <div class="large-12 columns">
-
-                    <div class="row">
-                      <div class="large-2 columns"><label><h5>Answer</h5></label></div>
-                      <div class="large-1 columns"><input type="radio" class="correct add" id="correct-answer" /></div>
-                      <div class="large-6 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
-                      <button href="#" class="button admin" id="remove-answer">-</button>
-                      <button href="#" class="button admin" id="add-answer">+</button>
-                    </div>
-
-                  </div>
-                </div>
-              </div> 
-            </div>
-          </legend>
-        </fieldset>
-      </div>
     </div>
+    
       <button href="#" class="button admin" id="add-question">Add Question</button>
         <div class="row">
           <div class="columns large-12 large-centered text-center">
@@ -83,9 +57,69 @@
   document.write('<script src=' + ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') + '.js><\/script>')
   </script>
 
+
+  <script id="question" type="text/html">
+      <div class="question-template" id="quiz_question-{{questionNumber}}">
+        <fieldset>
+          <legend>Question</legend>
+
+            <div class="add question row">
+              <div class="large-2 columns"><label><h5>Question</h5></label></div>
+              <div class="large-8 columns"><input id="quiz_question-{{questionNumber}}" type="text" placeholder="Question" required></div>
+              <div class="large-2 columns"></div>
+            </div>
+
+            <div id="answers-container">
+             <button href="#" class="button admin" id="add-answer">+</button>
+            </div>
+            
+          </legend>
+        </fieldset>
+      </div>
+  </script>
+
+
+  <script id="answer" type="text/html">
+              <div class="row answer-field" id="answer-container-{{answerNumber}}">
+                <div class="large-12 columns">
+                  <div class="row">
+                    <div class="large-2 columns"><label><h5>Answer</h5></label></div>
+                    <div class="large-1 columns"><input type="radio" class="correct" id="correct-answer" /></div>
+                    <div class="large-6 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
+                    <button href="#" class="button admin" id="remove-answer">-</button>
+                    <button href="#" class="button admin" id="add-answer">+</button>
+                  </div>
+                </div>
+              </div>
+  </script>
+
   <script src="js/foundation.min.js"></script>
 
   <script>
+
+
+  var questionNumber = 1;
+  var answerNumber = 1;
+
+  $(document).ready(function(){
+    addQuestion(questionNumber);
+    questionNumber += 1;
+  })
+
+  var addQuestion = function(qNumber) {
+    var question = ich.question({'questionNumber': qNumber})
+    $('#questions-container').append(question);
+    console.log(questionNumber)
+    addAnswer(answerNumber);
+    answerNumber += 1;
+  }
+
+  var addAnswer = function(aNumber) {
+    var answer = ich.answer({'answerNumber': aNumber});
+    $('#answers-container').append(answer);
+  }
+
+
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
     //var TestObject = Parse.Object.extend("TestObject");
@@ -93,7 +127,8 @@
 
     $('#add-answer').click(function() {
       event.preventDefault();
-      $('#answers-container').append($('.answer-template').html());
+      addAnswer(answerNumber);
+      answerNumber += 1;
     });
 
     $('#remove-answer').click(function() {
@@ -103,7 +138,8 @@
 
     $('#add-question').click(function() {
       event.preventDefault();
-      $('#questions-container').append($('.question-template').html());
+      addQuestion(questionNumber);
+      questionNumber += 1;
     });
     
 
