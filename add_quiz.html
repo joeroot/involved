@@ -30,38 +30,6 @@
 
   <div class="large-8 columns large-centered large-offset-2">
 
-
-  <div class="row">
-    <div class="large-3 columns">
-        <h5>Question title</h5>
-    </div>
-
-    <div class="large-6 columns">
-        <input type="text" />
-    </div>
-    <div class="large-1 columns">
-      <h5>Correct</h5>
-    </div>
-    <div class="large-2 columns">
-        add
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-3 columns">
-        Answer title
-    </div>
-    <div class="large-6 columns">
-      <input type="text">
-    </div>
-    <div class="large-1 columns">
-      Correct
-    </div>
-    <div class="large-2 columns">
-        del
-    </div>
-  </div>
-
-
   <form class="custom">
     <h3>Create your quiz</h3>
 
@@ -92,12 +60,11 @@
   <script id="question" type="text/html">
       <div class="question-template" id="question-{{questionNumber}}" question-id="{{questionNumber}}">
         <fieldset>
-          <legend>Question</legend>
+          <legend>A question</legend>
 
             <div class="add question row">
-              <div class="large-2 columns"><label><h5>Question</h5></label></div>
-              <div class="large-8 columns"><input type="text" placeholder="Question" required></div>
-              <div class="large-2 columns"></div>
+              <div class="large-2 columns"><label><h5>Title</h5></label></div>
+              <div class="large-10 columns"><input type="text" placeholder="Question" required></div>
             </div>
 
             <div id="answers-container">
@@ -117,9 +84,9 @@
                     <div class="large-2 columns"><label><h5>Answer</h5></label></div>
                     <div class="large-1 columns text-center">Correct<label for="radio1"><input name="radio1" type="radio" id="correct-answer" style="display:none;"><span class="custom radio checked correct"></span></label>
 </div>
-                    <div class="large-6 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
-                    <button href="#" class="button admin remove-answer-button">-</button>
-                    <button href="#" class="button admin add-answer-button">+</button>
+                    <div class="large-7 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
+                    <button href="#" class="button admin small remove-answer-button">-</button>
+                    <button href="#" class="button admin small add-answer-button">+</button>
                   </div>
                 </div>
               </div>
