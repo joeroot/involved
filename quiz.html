@@ -60,7 +60,7 @@
       <div class="row">
         <div class="large-8 large-centered columns">
           <input type="checkbox" id="answer-{{ index }}" name="answer" value="{{ index }}">
-          <button class="button large" data-object-id="{{ object_id }}" data-for="answer-{{ index }}">{{ answer }}</button>
+          <button class="button large {{correct}}" data-object-id="{{ object_id }}" data-for="answer-{{ index }}">{{ answer }}</button>
         </div>
       </div>
       {{/answers}}
@@ -116,7 +116,6 @@
 
     function loadQuestion(data) {
       var id = data.question_id;
-      console.log(id);
 
       var questions = new Parse.Query(Question);
 
@@ -132,7 +131,12 @@
               answers = results;
 
               answers = $.map(answers, function(answer, index) {
-                return {index: index, answer: answer.get("answer"), object_id: answer.id}
+                return {
+                  index: index, 
+                  answer: answer.get("answer"), 
+                  object_id: answer.id,
+                  correct: answer.get("correct")
+                }
               });
 
               var dom = ich.question({
@@ -172,11 +176,19 @@
 
     function clearQuestion() {
       var dom = ich.empty({});
-      $("#question-container").html(dom);
+      if ($("#question-container").children().length == 0) {
+        $("#question-container").html(dom);
+      } else {
+        $("#question-container").fadeOut(500, function() {
+          $("#question-container").html(dom);
+          $("#question-container").fadeIn(500);
+        });
+      }
     }
 
     function stopQuestion(data) {
-      $(".answers button.large:not(.selected)").hide(500);
+      $(".answers button.large.true").addClass("reveal");
+      $(".answers button.large:not(.selected):not(.true)").hide(500);
 
       var answers_length = $(".answers button.large.selected").length;
       var answers = new Parse.Query(Answer);
@@ -193,13 +205,17 @@
           }
         });
       });
+
+      setTimeout(function(){
+        clearQuestion();
+      }, 5000);
     }
 
     function handleQuestion(data){
       if (data.action == "start") {
         loadQuestion(data);
       } else {
-        clearQuestion();
+        stopQuestion();
       }
     }
 
@@ -214,13 +230,13 @@
 
       var pusher = new Pusher('7638841659acb7e9cdfd', { authEndpoint: 'http://pacific-fjord-7492.herokuapp.com/auth', authTransport: 'jsonp' });
 
-      var quiz_id = getURLParameter('id');
-      var channel = pusher.subscribe('private-'+quiz_id);
-      channel.bind('client-'+quiz_id, handleQuestion);
+      var quiz_slug = getURLParameter('slug');
+      var channel = pusher.subscribe('private-'+quiz_slug);
+      channel.bind('client-'+quiz_slug, handleQuestion);
     });
 
   </script>
 
-  <a hred="#" class="submit">Submit</a>
+  <a href="#" class="submit">Submit</a>
 </body>
 </html>
