@@ -286,3 +286,28 @@ button.admin.alter {
   font-weight:400;
 }
 
+.question-list-page .button {
+  font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
+  border-radius:5px;
+  border:none;
+  box-shadow:none;
+}
+
+.question-list-page h4 {
+  font-weight:500;
+}
+/*
+#56C7B2
+#373737
+#21BDD8
+#F8422D
+#FFD346
+*/
+
+.question-list-page .button.success {background-color:#56C7B2;}
+.question-list-page .button.stop {background-color:#F8422D;}
+.question-list-page .button.result {background-color:#21BDD8;}
+
+
+
+
