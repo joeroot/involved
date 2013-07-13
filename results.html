@@ -11,44 +11,48 @@
   <link rel="stylesheet" href="css/main.css" />
 
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
+  <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
-
-	<style>
-		h1 {
-			background-color: #4D8CEF;
-			margin-top: 0px;
-			padding: 10px;
-			color:white;
-		}
-		h2 {
-			padding: 10px;
-		}
-		.letter {
-			font-weight: bold;
-		}
-	</style>
-
-  <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-  <script src="js/vendor/custom.modernizr.js"></script>
-
+  <script src="js/main.js"></script>
 </head>
+
 <body>
 
-<h1>Quiz results</h1>
+  <header>
+    <div class="row">
+      <div class="large-12 columns text-center">
+        <h2>Involved</h2>
+      </div>
+    </div>
+  </header>
 
-<div id="row">
-	<div class="large-8 columns large-offset-2">
-<h2>Question: What colour is a dinosaur?</h2>
+  <div class="row question">
+    <div class="large-8 large-centered columns text-center">
+      <h6>Question:</h6>
+      <h3 id="question-text"></h3>
+    </div>
+  </div>
 
-<div id="answers" class="panel">
-	<div class="answer"><span class="letter">A</span> Blue</div> <div class="progress"><span class="meter secondary" style="width:25%"></div>
-	<div class="answer"><span class="letter">B</span> Red</div> <div class="progress alert"><span class="meter alert" style="width:22%"></div>
-	<div class="answer"><span class="letter">C</span> Green</div> <div class="progress success"><span class="meter success" style="width:34%"></div>
-	<div class="answer"><span class="letter">D</span> Grey</div> <div class="progress secondary"><span class="meter" style="width:76%"></div>
-	</div>
+
+<div class="row results">
+  <div class="columns large-8 large-offset-2">
+  <div id="answer-template" class="hidden">
+    <div id="answer" class="answer row panel answer">
+      <div class="large-4 columns text-center"><h4><span class="answer-value">Absolutely</span> - <span class="answer-percent">0</span></h4></div>
+      <div class="large-8 columns">
+        <div class="progress"><span class="meter secondary" style="width:0%"></span></div>
+      </div>
+    </div>
+    </div>
+  </div>
 </div>
+
+
+
+
+
+
 
   <script>
     document.write('<script src=' +
@@ -57,10 +61,97 @@
   </script>
 
   <script src="js/foundation.min.js"></script>
+  <!--
 
-    <script>
+  <script src="js/foundation/foundation.js"></script>
+
+  <script src="js/foundation/foundation.alerts.js"></script>
+
+  <script src="js/foundation/foundation.clearing.js"></script>
+
+  <script src="js/foundation/foundation.cookie.js"></script>
+
+  <script src="js/foundation/foundation.dropdown.js"></script>
+
+  <script src="js/foundation/foundation.forms.js"></script>
+
+  <script src="js/foundation/foundation.joyride.js"></script>
+
+  <script src="js/foundation/foundation.magellan.js"></script>
+
+  <script src="js/foundation/foundation.orbit.js"></script>
+
+  <script src="js/foundation/foundation.reveal.js"></script>
+
+  <script src="js/foundation/foundation.section.js"></script>
+
+  <script src="js/foundation/foundation.tooltips.js"></script>
+
+  <script src="js/foundation/foundation.topbar.js"></script>
+
+  <script src="js/foundation/foundation.interchange.js"></script>
+
+  <script src="js/foundation/foundation.placeholder.js"></script>
+
+  -->
+
+  <script>
+
+  function addAnswer(answer, text, correct) {
+      var template = $('#answer-template').clone();
+      $(template).find('.answer-value').text(text);
+      if (correct) {
+        $(template).children('#answer').addClass('callout');
+      }
+      $(template).children('div').attr("id","answer-"+answer);
+      $('.results').children('div').append(template.html());
+  }
+
+  function setScore(answer, score) {
+      var answerfield = $('#answer-'+answer);
+      answerfield.find(".answer-percent").text(score+"%");
+      answerfield.find(".progress").children('span').attr("style", "width:"+score+"%");
+  }
+
+  function getInformation(questionId) {
+      var Question = Parse.Object.extend("Question");
+      var Answer = Parse.Object.extend("Answer");
+      var query = new Parse.Query(Question);
+      query.get(questionId, {
+      success: function(question) {
+        $('#question-text').text(question.get('question'));
+        query = new Parse.Query(Answer);
+        query.equalTo("parent", question);
+        query.find({
+            success: function(answers) {
+              var totalVotes = 0;
+              for (var i = 0; i < answers.length; i++) {
+                totalVotes += parseInt(answers[i].get('votes'));
+              }
+              for (var i = 0; i < answers.length; i++) {
+                var answer = answers[i];
+                var chr = String.fromCharCode(97 + i);
+                addAnswer(chr, answer.get('answer'), answer.get('correct'));
+                var percentage = (parseInt(answer.get('votes'))/totalVotes)*100;
+                setScore(chr,percentage);
+              }
+            }
+          });
+      },
+      error: function(object, error) {
+        // The object was not retrieved successfully.
+        // error is a Parse.Error with an error code and description.
+      }
+    });
+  }
+
     $(document).foundation();
-  </script>
+    Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
 
-  </body>
-  </html>
+    var quizId = getURLParameter('quidId');
+    var questionId = getURLParameter('questionId');
+    getInformation(questionId);
+
+  </script>
+</body>
+</html>

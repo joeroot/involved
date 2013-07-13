@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/main.css" />
 
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
+  <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
 
@@ -40,51 +41,16 @@
   <div class="columns large-8 large-offset-2">
     <div class="row">
 
-
-  <div class="row">
-  <div class="columns large-8">
-    <h4 style="float:left">Do you love me?</h4> 
-  </div>
-  <div class="columns large-4">
-    <button class="button success">Ask</button> <button class="button alert">Results</button>
-  </div>
-  </div>
-
-    <div class="row">
-  <div class="columns large-8">
-    <h4 style="float:left">Why won't you love me?</h4> 
-  </div>
-  <div class="columns large-4">
-    <button class="button success">Ask</button> <button class="button alert">Results</button>
-  </div>
-  </div>
-
-    <div class="row">
-  <div class="columns large-8">
-    <h4 style="float:left">What's wrong with me?</h4> 
-  </div>
-  <div class="columns large-4">
-    <button class="button success">Ask</button> <button class="button alert">Results</button>
-  </div>
-  </div>
-
-    <div class="row">
-  <div class="columns large-8">
-    <h4 style="float:left">Don't you, don't you want me, don't you want me baaaby?</h4> 
-  </div>
-  <div class="columns large-4">
-    <button class="button success">Ask</button> <button class="button alert">Results</button>
-  </div>
-  </div>
-
-
-
+  <div class="row question question-template hidden">
+    <div class="columns large-8">
+      <h4 style="float:left">Do you love me?</h4> 
+    </div>
+    <div class="columns large-4">
+      <button class="button success">Ask</button> <button class="button alert">Results</button>
+    </div>
+    </div>
   </div>
 </div>
-
-
-
-
 
 
   <script>
@@ -127,9 +93,26 @@
   <script src="js/foundation/foundation.placeholder.js"></script>
 
   -->
+<script>
+  function getInformation(quizId) {
+      var Quiz = Parse.Object.extend("Quiz");
+      var query = new Parse.Query(Quiz);
+      query.get(quizId, {
+      success: function(question) {
 
-  <script>
+      },
+      error: function(object, error) {
+        // The object was not retrieved successfully.
+        // error is a Parse.Error with an error code and description.
+      }
+    });
+  }
+
     $(document).foundation();
+    Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
+    var quizId = getURLParameter('quizId');
+    getInformation(quizId);
+
   </script>
 </body>
 </html>
