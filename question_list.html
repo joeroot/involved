@@ -43,7 +43,7 @@
       <div class="columns large-8">
         <h4 style="float:left">Do you love me?</h4>
       </div>
-      <div class="columns large-4">
+      <div class="columns large-4 actions">
         <button class="button success ask">Ask</button>
         <button class="button alert stop">Stop</button>
         <button class="button alert">Results</button>
@@ -101,8 +101,7 @@
   function addQuestion(question, questionId, slug) {
       var template = $('#question-template').clone();
       $(template).attr('id','question-'+questionId);
-      template.find('.ask').data('id', questionId);
-      template.find('.stop').data('id', questionId);
+      template.find('.actions').data('id', questionId);
       $(template).removeClass('hidden');
       $(template).find('h4').text(question);
       $('#questions').append(template);
