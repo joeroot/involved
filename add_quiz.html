@@ -200,11 +200,12 @@
           console.log('iterating answers')
           var answer = new Answer();
           var answerString = $(a_item).val();
-          console.log(answerString);
+          var radio = $(this).parent("div").next().find("span")[0];
+          var correct = $(radio).hasClass("checked");
           answer.save({
             answer: answerString,
             votes: 0,
-            correct: false,
+            correct:correct,
             parent: question,
           })
           console.log('answer saved')
