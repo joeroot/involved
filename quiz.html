@@ -144,12 +144,7 @@
                 answers: answers
               });
 
-              //$("#question-container").slideUp(300);
               $("#question-container").html(dom);
-
-              $(".answers button.large").each(function(i){
-                //new FastClick(this);
-              });
 
               $(".answers button.large").on('click', function(e){
                 var for_id = $(this).data("for");
@@ -198,7 +193,7 @@
 
         answers.get(answer_id, {
           success: function(answer) {
-            answer.increment("score", 1/answers_length);
+            answer.increment("votes", 1/answers_length);
             answer.save();
           },
           error: function(answer) {
@@ -212,6 +207,7 @@
     }
 
     function handleQuestion(data){
+      console.log(data);
       if (data.action == "start") {
         loadQuestion(data);
       } else {
@@ -221,12 +217,6 @@
 
     $(function() {
       clearQuestion();
-      loadQuestion({question_id: "f90vJiRJg3"});
-
-      $("a.submit").click(function(e){
-        stopQuestion({question_id: "f90vJiRJg3"});
-        e.preventDefault();
-      });
 
       var pusher = new Pusher('7638841659acb7e9cdfd', { authEndpoint: 'http://pacific-fjord-7492.herokuapp.com/auth', authTransport: 'jsonp' });
 
@@ -236,7 +226,5 @@
     });
 
   </script>
-
-  <a href="#" class="submit">Submit</a>
 </body>
 </html>
