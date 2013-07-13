@@ -57,6 +57,10 @@ header h2 a {
   color:#FFF;
 }
 
+header h2 img {
+  margin-right:6px;
+}
+
 form.answers button.button.large {
   font-family: "proxima-nova", "Proxima Nova", "Helvetica", "Arial", "sans-serif" !important;
   padding-left:64px;
