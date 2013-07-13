@@ -161,7 +161,7 @@ input.intro {
   padding:15px 0;
 }
 
-.question h3 {
+.question h3, .add-quiz h3 {
   font-size:20px !important;
   line-height:28px !important;
   padding:0 !important;
@@ -180,7 +180,7 @@ input.intro {
   padding:4px 8px;
 }
 
-.question h6 {
+.question h6, .add-quiz h6 {
   color:#666;
   font-size:14px;
   text-transform:uppercase;
@@ -241,7 +241,9 @@ input.intro {
 }
 
 /* quiz add page */
-
+.add-quiz {
+  padding:15px; 
+}
 .correct.add {
   margin-left: 20px !important;
   margin-top: 05px;

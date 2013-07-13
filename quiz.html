@@ -221,7 +221,7 @@
 
       var pusher = new Pusher('7638841659acb7e9cdfd', { authEndpoint: 'http://pacific-fjord-7492.herokuapp.com/auth', authTransport: 'jsonp' });
 
-      var quiz_slug = getURLParameter('slug');
+      var quiz_slug = getURLParameter('slug').toLowerCase();
       var channel = pusher.subscribe('private-'+quiz_slug);
       channel.bind('client-'+quiz_slug, handleQuestion);
     });
