@@ -244,6 +244,10 @@ button.admin.alter {
   background-color: green;
 }
 
+.custom div {
+  padding: 5px !important;
+}
+
 /* index */
 button.intro {
   margin-left: 10px;
