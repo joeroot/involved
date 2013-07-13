@@ -59,21 +59,14 @@
 
 
   <script id="question" type="text/html">
-      <div class="question-template" id="question-{{questionNumber}}" question-id="{{questionNumber}}">
-        <fieldset>
-          <legend>A question</legend>
-
-            <div class="add question row">
-              <div class="large-2 columns"><label><h5>Title</h5></label></div>
-              <div class="large-10 columns"><input class="question-field" type="text" placeholder="Question" required></div>
-            </div>
-
-            <div id="answers-container">
-
-            </div>
-            
-          </legend>
-        </fieldset>
+    <div class="question-template" id="question-{{questionNumber}}" question-id="{{questionNumber}}">    <h4>QUESTION {{questionNumber}}</h4>
+          <div class="add question row">
+            <div class="large-2 columns"><label><h5>Title</h5></label></div>
+            <div class="large-10 columns"><input class="question-field" type="text" placeholder="Question" required></div>
+          </div>
+          <div id="answers-container">
+          </div>
+  
       </div>
   </script>
 

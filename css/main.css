@@ -261,10 +261,16 @@ button.admin.alter {
   bacolor: green;
 }
 
-.custom div {
-  padding: 5px !important;
+.question-template {
+  background: #fff;
+  margin: 10px;
+  border-radius: 15px;
+  padding:20px 30px;
 }
 
 .question-template .row div {
   padding: 2px !important;
 }
+
+
+
