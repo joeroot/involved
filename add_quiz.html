@@ -24,7 +24,7 @@
   <header>
     <div class="row">
       <div class="large-12 columns text-center">
-        <h2>Involved</h2>
+       <h2><a href="/"><img src="img/logo.png" alt="logo" style="height:25px;margin-top:-5px" /> Involved</a></h2>
       </div>
     </div>
   </header>
@@ -34,6 +34,8 @@
 
   <form>
     <h3>Create your quiz</h3>
+
+    Reference Code:<input type="text" class="ref" id="reference_code" placeholder="reference code"/>
     <div class="row" id="questions-container">
       <div class="question_template">
         <fieldset>
@@ -41,21 +43,21 @@
 
             <div class="question row">
               <div class="large-2 columns"><label><h5>Question</h5></label></div>
-              <div class="large-8 columns"><input id="quiz_question" type="text" placeholder="Question"></div>
+              <div class="large-8 columns"><input id="quiz_question" type="text" placeholder="Question" required></div>
               <div class="large-2 columns"></div>
             </div>
 
             <div id="answers-container">
-              <div class="answer_template">
-                <div class="row answer_field">
+              <div class="answer-template">
+                <div class="row answer-field">
                   <div class="large-12 columns">
 
                     <div class="row">
                       <div class="large-2 columns"><label><h5>Answer</h5></label></div>
-                      <div class="large-1 columns"><input type="radio" class="correct" id="correct_answer" /></div>
-                      <div class="large-6 columns"><input type="text" class='an_answer' placeholder="Enter a possible answer"></div>
-                      <button href="#" class="button admin" id="delete_answer">-</button>
-                      <button href="#" class="button admin" id="add_answer">+</button>
+                      <div class="large-1 columns"><input type="radio" class="correct" id="correct-answer" /></div>
+                      <div class="large-6 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
+                      <button href="#" class="button admin" id="remove-answer">-</button>
+                      <button href="#" class="button admin" id="add-answer">+</button>
                     </div>
 
                   </div>
@@ -66,10 +68,10 @@
         </fieldset>
       </div>
     </div>
-      <button href="#" class="button admin" id="add_question">Add Question</button>
+      <button href="#" class="button admin" id="add-question">Add Question</button>
         <div class="row">
           <div class="columns large-12 large-centered text-center">
-          <button id="save_quiz" class="button admin">Save Quiz</button>
+          <button id="save-quiz" class="button admin">Save Quiz</button>
         </div>
       </div>
     </form>
@@ -87,14 +89,19 @@
     //var TestObject = Parse.Object.extend("TestObject");
     //var testObject = new TestObject();
 
-    $('#add_answer').click(function() {
+    $('#add-answer').click(function() {
       event.preventDefault();
-      $('#answers-container').append($('.answer_template').html());
+      $('#answers-container').append($('.answer-template').html());
     });
 
-    $('#add_question').click(function() {
+    $('#remove-answer').click(function() {
       event.preventDefault();
-      $('#questions-container').append($('.question_template').html());
+      $('#answers-container').remove($('.answer-template').html());
+    });
+
+    $('#add-question').click(function() {
+      event.preventDefault();
+      $('#questions-container').append($('.question-template').html());
     });
     
 
@@ -103,18 +110,18 @@
     var Answer = Parse.Object.extend("Answer");
 
 
-    $('#save_quiz').click(function(event){
+    $('#save-quiz').click(function(event){
       event.preventDefault();
       console.log('hoping to save quiz')
 
       var quiz = new Quiz();
       //save each question
-      var questions = $('#quiz_question').each(function(q_index,q_item) {
+      var questions = $('#quiz-question').each(function(q_index,q_item) {
         console.log('iterating through questions')
         var question = new Question();
         var questionString = $(q_item).val();
         //add each answer
-        $('.answer_field .an_answer').each(function(a_index,a_item) {
+        $('.answer-field .an-answer').each(function(a_index,a_item) {
             console.log('iterating answers')
             var answer = new Answer;
             var answerString = $(a_item).val();
@@ -144,9 +151,6 @@
       });
     });
 
-    //Querying
-    var quizes = new Parse.Query(Quiz);
-    quizes.each(function(quiz){console.log(quiz.get('question'))})
   </script>
 </body>
 </html>
