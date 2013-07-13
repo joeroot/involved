@@ -27,26 +27,26 @@
   </header>
 
 <div class="row">
- <div class="columns large-8 large-offset-1 large-centered small-10 small-offset-1 text-center">
+ <div class="columns large-8 large-offset-1 large-centered small-12 text-center">
       <h1 class="home_title">In lecture quizzes. Solved.</h1>
 </div>
 
- <div class="columns large-5 large-offset-1 large-centered small-10 small-offset-1 text-center">
+ <div class="columns large-5 large-offset-1 large-centered small-12 text-center">
 
 <form class="class_code" action="quiz.html">
       <div class="row collapse">
         <div class="small-10 columns">
-          <input class="intro" type="text" name="id" placeholder="Enter lecture code" required />
+          <input class="intro" type="text" name="slug" placeholder="Lecturer's code" required />
         </div>
         <div class="small-2 columns">
-          <button class="intro" class="button intro">Go</button>
+          <button id="submit-button" class="intro" class="button intro">Go</button>
         </div>
       </div>
 </form>
 </div>
 
 
- <div class="columns large-8 large-offset-1 large-centered small-10 small-offset-1 text-center">
+ <div class="columns large-8 large-offset-1 large-centered small-12 small-centered text-center">
 <h4>
   <p class="subheader">Put your hand down. Involved makes setting quizzes in lectures super simple. Students answer questions in their browser or on their smartphone. Results appear instantly on lecturer's screen.</p>
 
@@ -66,6 +66,9 @@
 
   <script>
     $(document).foundation();
+    $('#submit-button').click(function() {
+      $('form').submit();
+    });
   </script>
 </body>
 </html>
