@@ -16,9 +16,9 @@ Parse.Cloud.define("auth", function(request, response) {
   (function(){var h=CryptoJS,s=h.enc.Utf8;h.algo.HMAC=h.lib.Base.extend({init:function(f,g){f=this._hasher=new f.init;"string"==typeof g&&(g=s.parse(g));var h=f.blockSize,m=4*h;g.sigBytes>m&&(g=f.finalize(g));g.clamp();for(var r=this._oKey=g.clone(),l=this._iKey=g.clone(),k=r.words,n=l.words,j=0;j<h;j++)k[j]^=1549556828,n[j]^=909522486;r.sigBytes=l.sigBytes=m;this.reset()},reset:function(){var f=this._hasher;f.reset();f.update(this._iKey)},update:function(f){this._hasher.update(f);return this},finalize:function(f){var g=
   this._hasher;f=g.finalize(f);g.reset();return g.finalize(this._oKey.clone().concat(f))}})})();
 
-	var socket = request.params.socket_id
-	var channel = request.params.channel_name
-	var secret = 'd02c01c470d0eddd82ac'
+  var socket = request.params.socket_id
+  var channel = request.params.channel_name
+  var secret = 'd02c01c470d0eddd82ac'
 
   var hash = CryptoJS.HmacSHA256(socket + ':' + channel, secret);
   hash = String(hash)
