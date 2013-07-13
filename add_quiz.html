@@ -16,8 +16,6 @@
   <script src="js/vendor/custom.modernizr.js"></script>
   <script type="text/javascript" src="js/vendor/ICanHaz.js"></script>
 
-  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -33,7 +31,7 @@
   <div class="large-8 columns large-centered large-offset-2">
 
 
-  <form>
+  <form class="custom">
     <h3>Create your quiz</h3>
 
     Reference Code:<input type="text" class="ref" id="reference_code" placeholder="reference code"/>
@@ -61,14 +59,14 @@
         <fieldset>
           <legend>Question</legend>
 
-            <div class="question row">
+            <div class="add question row">
               <div class="large-2 columns"><label><h5>Question</h5></label></div>
               <div class="large-8 columns"><input id="quiz_question-{{questionNumber}}" type="text" placeholder="Question" required></div>
               <div class="large-2 columns"></div>
             </div>
 
             <div id="answers-container">
-               <button href="#" class="button admin" id="add-answer">+</button>
+             <button href="#" class="button admin" id="add-answer">+</button>
             </div>
             
           </legend>
