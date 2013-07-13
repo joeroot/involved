@@ -113,6 +113,16 @@
       answerfield.find(".progress").children('span').attr("style", "width:"+score+"%");
   }
 
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+     vars[key] = value;
+    });
+    return vars;
+  }
+
+  var questionId = getUrlVars()["questionId"];
+
   function getInformation(questionId) {
       var Question = Parse.Object.extend("Question");
       var Answer = Parse.Object.extend("Answer");
