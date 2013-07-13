@@ -9,13 +9,8 @@
 
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/main.css" />
-<<<<<<< HEAD:add_quiz.html
   <link rel="stylesheet" href="css/flat-ui.css" />
 
-
-=======
-  <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
->>>>>>> bed0236d2cbb6417e7e6e660193db27538820493:lecturer.html
   <script type="text/javascript" src="//use.typekit.net/xuo4ojj.js"></script>
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script src="http://js.pusher.com/2.1/pusher.min.js" type="text/javascript"></script>
@@ -46,7 +41,6 @@
       <div class="row">
         <div class="question_template">
 
-<<<<<<< HEAD:add_quiz.html
         <div class="row">
           <div class="large-2 columns"><label><h5>Question</h5></label></div>
           <div class="large-8 columns"><input id="quiz_question" type="text" placeholder="Enter the question you'd like displayed to the students"></div>
@@ -60,7 +54,7 @@
 
                 <div class="row">
                   <div class="large-2 columns"><label><h5>Answer</h5></label></div>
-                  <div class="large-8 columns"><input type="text" class='an_answer' placeholder="Enter one of the possible answers"></div> 
+                  <div class="large-8 columns"><input type="text" class='an_answer' placeholder="Enter one of the possible answers"></div>
                   <div class="large-2 columns"> <a href="#" id="delete_answer"><i class="icon-remove icon-2x"></i></a> <input type="radio" class="correct" id="correct_answer" />
                   </div>
                 </div>
@@ -69,11 +63,10 @@
 
               </div>
             </div>
-          </div> 
-=======
+          </div>
         <div id="answers" >
-          
->>>>>>> bed0236d2cbb6417e7e6e660193db27538820493:lecturer.html
+
+
         </div>
 
 
@@ -131,7 +124,7 @@
       $('#answers').append($('.question_template').html());
       e.preventDefault();
     });
-    
+
 
     var Quiz = Parse.Object.extend("Quiz");
     var Question = Parse.Object.extend("Question");
@@ -176,7 +169,10 @@
           }
         });
       })
-
+      //var channel = pusher.subscribe('private-1');
+      //channel.bind('pusher:subscription_succeeded', function() {
+      //  var triggered = channel.trigger('client-1', { id: 2 });
+      //});
       //save each Quiz
 
     })
