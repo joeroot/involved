@@ -58,7 +58,7 @@
 
 
   <script id="question" type="text/html">
-      <div class="question-template" id="question-{{questionNumber}}" questionid="{{questionNumber}}">
+      <div class="question-template" id="question-{{questionNumber}}" question-id="{{questionNumber}}">
         <fieldset>
           <legend>A question</legend>
 
@@ -78,7 +78,7 @@
 
 
   <script id="answer" type="text/html">
-              <div class="row answer-field" id="answer-container-{{answerNumber}}">
+              <div class="row answer-block" answer-id="{{answerNumber}}">
                 <div class="large-12 columns">
                   <div class="row">
                     <div class="large-2 columns"><label><h5>Answer</h5></label></div>
@@ -123,15 +123,16 @@
 
     $('#questions-container').on('click','.add-answer-button', function(event) {
       event.preventDefault();
-      var parentQuestion = $(this).closest('.question-template').attr('questionid');
+      var parentQuestion = $(this).closest('.question-template').attr('question-id');
       addAnswer(parentQuestion, answerNumber);
       answerNumber += 1;
     });
 
-    $('.remove-answer-button').click(function() {
+    $('#questions-container').on('click','.remove-answer-button', function(event) {
       console.log('remove answer please')
       event.preventDefault();
-      $('#answers-container').remove($('.answer-template').html());
+      var parentAnswer = $(this).closest('.answer-block');
+      parentAnswer.remove();
     });
 
     $('.add-question-button').click(function(event) {
