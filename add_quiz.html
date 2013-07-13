@@ -40,7 +40,7 @@
 
     </div>
     
-      <button href="#" class="button admin" id="add-question">Add Question</button>
+      <button href="#" class="button admin add-question-button">Add Question</button>
         <div class="row">
           <div class="columns large-12 large-centered text-center">
           <button id="save-quiz" class="button admin">Save Quiz</button>
@@ -55,18 +55,17 @@
 
 
   <script id="question" type="text/html">
-      <div class="question-template" id="quiz_question-{{questionNumber}}">
+      <div class="question-template" id="question-{{questionNumber}}" questionid="{{questionNumber}}">
         <fieldset>
           <legend>Question</legend>
 
             <div class="add question row">
               <div class="large-2 columns"><label><h5>Question</h5></label></div>
-              <div class="large-8 columns"><input id="quiz_question-{{questionNumber}}" type="text" placeholder="Question" required></div>
+              <div class="large-8 columns"><input type="text" placeholder="Question" required></div>
               <div class="large-2 columns"></div>
             </div>
 
             <div id="answers-container">
-             <button href="#" class="button admin" id="add-answer">+</button>
             </div>
             
           </legend>
@@ -82,8 +81,8 @@
                     <div class="large-2 columns"><label><h5>Answer</h5></label></div>
                     <div class="large-1 columns"><input type="radio" class="correct" id="correct-answer" /></div>
                     <div class="large-6 columns"><input type="text" class='an-answer' placeholder="Enter a possible answer"></div>
-                    <button href="#" class="button admin" id="remove-answer">-</button>
-                    <button href="#" class="button admin" id="add-answer">+</button>
+                    <button href="#" class="button admin remove-answer-button">-</button>
+                    <button href="#" class="button admin add-answer-button">+</button>
                   </div>
                 </div>
               </div>
@@ -94,45 +93,45 @@
   <script>
 
 
-  var questionNumber = 1;
-  var answerNumber = 1;
-
-  $(document).ready(function(){
-    addQuestion(questionNumber);
-    questionNumber += 1;
-  })
-
-  var addQuestion = function(qNumber) {
-    var question = ich.question({'questionNumber': qNumber})
-    $('#questions-container').append(question);
-    console.log(questionNumber)
-    addAnswer(answerNumber);
-    answerNumber += 1;
-  }
-
-  var addAnswer = function(aNumber) {
-    var answer = ich.answer({'answerNumber': aNumber});
-    $('#answers-container').append(answer);
-  }
-
-
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
-    //var TestObject = Parse.Object.extend("TestObject");
-    //var testObject = new TestObject();
 
-    $('#add-answer').click(function() {
+    var questionNumber = 1;
+    var answerNumber = 1;
+
+    $(document).ready(function(){
+      addQuestion(questionNumber);
+      questionNumber += 1;
+    })
+
+    var addQuestion = function(qNumber) {
+      var question = ich.question({'questionNumber': qNumber})
+      $('#questions-container').append(question);
+      console.log(questionNumber)
+      addAnswer(questionNumber, answerNumber);
+      answerNumber += 1;
+    }
+
+    var addAnswer = function(qNumber, aNumber) {
+      var answer = ich.answer({'answerNumber': aNumber});
+      $('#question-' + qNumber + ' #answers-container').append(answer);
+    }
+
+    $('#questions-container').on('click','.add-answer-button', function(event) {
       event.preventDefault();
-      addAnswer(answerNumber);
+      var parentQuestion = $(this).closest('.question-template').attr('questionid');
+      addAnswer(parentQuestion, answerNumber);
       answerNumber += 1;
     });
 
-    $('#remove-answer').click(function() {
+    $('.remove-answer-button').click(function() {
+      console.log('remove answer please')
       event.preventDefault();
       $('#answers-container').remove($('.answer-template').html());
     });
 
-    $('#add-question').click(function() {
+    $('.add-question-button').click(function(event) {
+      console.log('question')
       event.preventDefault();
       addQuestion(questionNumber);
       questionNumber += 1;
