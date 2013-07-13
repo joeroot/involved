@@ -263,8 +263,11 @@ button.admin.alter {
   bacolor: green;
 }
 
-.custom div {
-  padding: 5px !important;
+.question-template {
+  background: #fff;
+  margin: 10px;
+  border-radius: 15px;
+  padding:20px 30px;
 }
 
 .question-template .row div {
@@ -282,3 +285,4 @@ button.admin.alter {
   color:#333;
   font-weight:400;
 }
+
