@@ -15,8 +15,6 @@
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
 
-  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -32,7 +30,7 @@
   <div class="large-8 columns large-centered large-offset-2">
 
 
-  <form>
+  <form class="custom">
     <h3>Create your quiz</h3>
     <div class="row" id="questions-container">
       <div class="question_template">
@@ -52,10 +50,11 @@
 
                     <div class="row">
                       <div class="large-2 columns"><label><h5>Answer</h5></label></div>
-                      <div class="large-1 columns"><input type="radio" class="correct" id="correct_answer" /></div>
+                      <div class="large-1 columns"><label for="radio1"><input name="radio1" type="radio" id="radio1" style="display:none;" id="correct_answer" CHECKED><span class="custom radio checked correct"></span></label>
+</div>
                       <div class="large-6 columns"><input type="text" class='an_answer' placeholder="Enter a possible answer"></div>
-                      <button href="#" class="button admin" id="delete_answer">-</button>
-                      <button href="#" class="button admin" id="add_answer">+</button>
+                      <button href="#" class="button admin alter" id="delete_answer">-</button>
+                      <button href="#" class="button admin alter" id="add_answer">+</button>
                     </div>
 
                   </div>
@@ -66,7 +65,11 @@
         </fieldset>
       </div>
     </div>
-      <button href="#" class="button admin" id="add_question">Add Question</button>
+        <div class="row">
+          <div class="columns large-11 large-offset-1">
+             <button href="#" class="button admin" id="add_question">Add Question</button>
+          </div>
+        </div>
         <div class="row">
           <div class="columns large-12 large-centered text-center">
           <button id="save_quiz" class="button admin">Save Quiz</button>
