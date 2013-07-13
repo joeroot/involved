@@ -253,6 +253,10 @@ button.admin.alter {
   padding: 5px !important;
 }
 
+.question-template .row div {
+  padding: 2px !important;
+}
+
 /* index */
 button.intro {
   margin-left: 10px;
