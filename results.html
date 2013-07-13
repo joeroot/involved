@@ -22,7 +22,7 @@
   <header>
     <div class="row">
       <div class="large-12 columns text-center">
-        <h2>Involved</h2>
+       <h2><a href="/"><img src="img/logo.png" alt="logo" style="height:25px;margin-top:-5px" /> Involved</a></h2>
       </div>
     </div>
   </header>
@@ -112,6 +112,16 @@
       answerfield.find(".answer-percent").text(score+"%");
       answerfield.find(".progress").children('span').attr("style", "width:"+score+"%");
   }
+
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+     vars[key] = value;
+    });
+    return vars;
+  }
+
+  var questionId = getUrlVars()["questionId"];
 
   function getInformation(questionId) {
       var Question = Parse.Object.extend("Question");

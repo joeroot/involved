@@ -15,8 +15,7 @@
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
-
-
+  <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -38,16 +37,14 @@
 
 
 <div class="row archive results">
-  <div class="columns large-8 large-offset-2">
-    <div class="row">
-
-  <div class="row question question-template hidden">
-    <div class="columns large-8">
-      <h4 style="float:left">Do you love me?</h4> 
-    </div>
-    <div class="columns large-4">
-      <button class="button success">Ask</button> <button class="button alert">Results</button>
-    </div>
+  <div id="questions" class="columns large-8 large-offset-2">
+    <div id="question-template" class="row question hidden">
+      <div class="columns large-8">
+        <h4 style="float:left">Do you love me?</h4> 
+      </div>
+      <div class="columns large-4">
+        <button class="button success">Ask</button> <button class="button alert">Results</button>
+      </div>
     </div>
   </div>
 </div>
@@ -94,12 +91,35 @@
 
   -->
 <script>
+
+function addQuestion(question, questionId) {
+    var template = $('#question-template').clone();
+    $(template).attr('id','question-'+questionId);
+    $(template).removeClass('hidden');
+    $(template).find('h4').text(question);
+    $('#questions').append(template);
+}
+
   function getInformation(quizId) {
+      if (quizId == 'null') {
+        alert('No quiz ID provided in URL');
+        return;
+      }
       var Quiz = Parse.Object.extend("Quiz");
+      var Question = Parse.Object.extend("Question");
       var query = new Parse.Query(Quiz);
       query.get(quizId, {
-      success: function(question) {
-
+      success: function(quiz) {
+        query = new Parse.Query(Question);
+        query.equalTo("quiz",quiz);
+        query.find({
+            success: function(questions) {
+              for (var i = 0; i < questions.length; i++) {
+                var question = questions[i];
+                addQuestion(question.get('question'), question.get('objectId'));
+              }
+            }
+        });
       },
       error: function(object, error) {
         // The object was not retrieved successfully.
