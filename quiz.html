@@ -183,6 +183,7 @@
 
     function stopQuestion(data) {
       $(".answers button.large.true").addClass("reveal");
+      $(".answers button.large.selected").addClass("reveal");
       $(".answers button.large:not(.selected):not(.true)").hide(500);
 
       var answers_length = $(".answers button.large.selected").length;
