@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -15,8 +14,7 @@
   <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <script src="js/vendor/custom.modernizr.js"></script>
-
-
+  <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -29,28 +27,31 @@
     </div>
   </header>
 
-  <div class="row question extramargin">
+  <div class="row question">
     <div class="large-8 large-centered columns text-center">
-      <h6>QUESTION ADMIN:</h6>
-      <h3>Set a question or see results</h3>
+      <h6>Question:</h6>
+      <h3 id="question-text"></h3>
     </div>
   </div>
 
 
-<div class="row archive results">
+<div class="row results">
   <div class="columns large-8 large-offset-2">
-    <div class="row">
-
-  <div class="row question question-template hidden">
-    <div class="columns large-8">
-      <h4 style="float:left">Do you love me?</h4> 
-    </div>
-    <div class="columns large-4">
-      <button class="button success">Ask</button> <button class="button alert">Results</button>
+  <div id="answer-template" class="hidden">
+    <div id="answer" class="answer row panel answer">
+      <div class="large-4 columns text-center"><h4><span class="answer-value">Absolutely</span> - <span class="answer-percent">0</span></h4></div>
+      <div class="large-8 columns">
+        <div class="progress"><span class="meter secondary" style="width:0%"></span></div>
+      </div>
     </div>
     </div>
   </div>
 </div>
+
+
+
+
+
 
 
   <script>
@@ -93,13 +94,49 @@
   <script src="js/foundation/foundation.placeholder.js"></script>
 
   -->
-<script>
-  function getInformation(quizId) {
-      var Quiz = Parse.Object.extend("Quiz");
-      var query = new Parse.Query(Quiz);
-      query.get(quizId, {
-      success: function(question) {
 
+  <script>
+
+  function addAnswer(answer, text, correct) {
+      var template = $('#answer-template').clone();
+      $(template).find('.answer-value').text(text);
+      if (correct) {
+        $(template).children('#answer').addClass('callout');
+      }
+      $(template).children('div').attr("id","answer-"+answer);
+      $('.results').children('div').append(template.html());
+  }
+
+  function setScore(answer, score) {
+      var answerfield = $('#answer-'+answer);
+      answerfield.find(".answer-percent").text(score+"%");
+      answerfield.find(".progress").children('span').attr("style", "width:"+score+"%");
+  }
+
+  function getInformation(questionId) {
+      var Question = Parse.Object.extend("Question");
+      var Answer = Parse.Object.extend("Answer");
+      var query = new Parse.Query(Question);
+      query.get(questionId, {
+      success: function(question) {
+        $('#question-text').text(question.get('question'));
+        query = new Parse.Query(Answer);
+        query.equalTo("parent", question);
+        query.find({
+            success: function(answers) {
+              var totalVotes = 0;
+              for (var i = 0; i < answers.length; i++) {
+                totalVotes += parseInt(answers[i].get('votes'));
+              }
+              for (var i = 0; i < answers.length; i++) {
+                var answer = answers[i];
+                var chr = String.fromCharCode(97 + i);
+                addAnswer(chr, answer.get('answer'), answer.get('correct'));
+                var percentage = (parseInt(answer.get('votes'))/totalVotes)*100;
+                setScore(chr,percentage);
+              }
+            }
+          });
       },
       error: function(object, error) {
         // The object was not retrieved successfully.
@@ -110,8 +147,10 @@
 
     $(document).foundation();
     Parse.initialize("EeEFArcfnsV0d1uVCJ4K5j6y86se3cyKP5bEigcm", "TuWtuZ7iXYxkxOar3vwlVFq2jOpkHTPRilxSjllC");
-    var quizId = getURLParameter('quizId');
-    getInformation(quizId);
+
+    var quizId = getURLParameter('quidId');
+    var questionId = getURLParameter('questionId');
+    getInformation(questionId);
 
   </script>
 </body>
