@@ -131,9 +131,11 @@
       success: function(question) {
         $('#question-text').text(question.get('question'));
         query = new Parse.Query(Answer);
+        query.ascending("createdAt");
         query.equalTo("parent", question);
         query.find({
             success: function(answers) {
+              $("[id^=answer-].answer").remove();
               var totalVotes = 0;
               for (var i = 0; i < answers.length; i++) {
                 totalVotes += parseInt(answers[i].get('votes'));
@@ -161,6 +163,10 @@
     var quizId = getURLParameter('quidId');
     var questionId = getURLParameter('questionId');
     getInformation(questionId);
+
+    window.setInterval(function() {
+      getInformation(questionId);
+    },4000);
 
   </script>
 </body>
