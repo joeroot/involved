@@ -275,14 +275,11 @@ button.admin.alter {
 }
 
 .add-quiz-page input[type=text] {
+  font-size:18px;
   border-radius:4px;
   box-shadow:none;
   color:#333;
   font-weight:400;
-}
-
-.question-template input[type=text]{
-    font-size:18px;
 }
 
 .add-question-button {
